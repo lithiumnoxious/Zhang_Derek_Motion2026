@@ -18,17 +18,23 @@ public class Player : MonoBehaviour
             //we use gameobject's transfrom.position + the amount i want it to be off setted by, in our case it's 2
             spawnbomboffset(transform.position + new Vector3(0,2,0));
         }
-        if (Keyboard.current.wKey.isPressed)
+        if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
-            //when w key is held ship will move forward
+            //when w key is pressed ship will move forward
             //we use gameobject's simularly to the bomb but we off set during the method
             //the float is the speed / amount the ship is moving forwards by
-            warpDrive(transform.position, 0.1f);
+            warpDrive(transform.position, 0.5f);
         }
-    }
+        if (Keyboard.current.spaceKey.wasReleasedThisFrame)
+        {
+           
+            warpDrive2(transform.position,enemyTransform.position, 0.5f);
+        }
 
+    }
     public void spawnbomboffset(Vector3 inoffset)
     {
+        
         //Instantiated the bomb prefab, using the inoffset vector3 and keeping the rotation of the inoffset
         GameObject bob = Instantiate(bombPrefab, inoffset, Quaternion.identity);
         //miss understood the bounus challenge
@@ -47,9 +53,36 @@ public class Player : MonoBehaviour
 
     public void warpDrive(Vector3 ship, float speed)
     {
+        //detects if speed is too high or too low before the rest of the code
+        //locks it back down.
+        if (speed > 1)
+        {
+            speed = 1;
+        }
+        if (speed < 0)
+        {
+            speed = 0;
+        }
         //vector3 of ship instead of transform.pos is here because trans.pos can not to adjusted like how i am using it for
         ship.y += speed;
         //match the new ship vector with the actual gameobj pos
-        transform.position = ship.normalized;
+        transform.position = ship;
+    }
+    public void warpDrive2(Vector2 ship,Vector2 enemy, float speed)
+    {
+        if (speed > 1)
+        {
+            speed = 1;
+        }
+        if (speed < 0)
+        {
+            speed = 0;
+        }
+
+        ship = Vector3.Lerp(ship,enemy,speed);
+
+
+
+        transform.position = ship;
     }
 }
