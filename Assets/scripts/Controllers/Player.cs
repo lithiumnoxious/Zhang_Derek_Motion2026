@@ -9,7 +9,10 @@ public class Player : MonoBehaviour
     public Transform enemyTransform;
     public GameObject bombPrefab;
     public Transform bombsTransform;
-    public Vector3 Offset;
+    public Vector3 inOffset;
+    public int bombtrailspacing;
+
+    public int numberOfTrailBombs;
 
     void Update()
     {
@@ -19,7 +22,11 @@ public class Player : MonoBehaviour
             //we use gameobject's transfrom.position + the amount i want it to be off setted by, in our case it's 2
             //spawnbomboffset(transform.position + new Vector3(0,2,0));
 
-            SpawnBombAtOffset(Offset);//task 1
+            SpawnBombAtOffset(inOffset);//task 1
+        }
+        if (Keyboard.current.tKey.wasReleasedThisFrame)
+        {
+            SpawnBombTrail(bombtrailspacing, numberOfTrailBombs);
         }
         if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
@@ -33,6 +40,7 @@ public class Player : MonoBehaviour
            
             WarpPlayer(transform.position,enemyTransform.position, 0.5f);
         }
+        
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -47,7 +55,16 @@ public class Player : MonoBehaviour
     {
         GameObject bob = Instantiate(bombPrefab, transform.position + inoffset, Quaternion.identity);
         Destroy(bob, 5);
+    }
 
+    public void SpawnBombTrail(float BombSpacing, int NumberOfBombs)
+    {
+        float angle = transform.eulerAngles.z;
+        for (int i = 0; i < NumberOfBombs; i++)
+        {
+            GameObject bob = Instantiate(bombPrefab, new Vector2(transform.position.x, transform.position.y - bombtrailspacing * i), transform.rotation*Quaternion.Euler(0, 0, angle));
+            
+        }
     }
 
     public IEnumerator die(GameObject bob)
