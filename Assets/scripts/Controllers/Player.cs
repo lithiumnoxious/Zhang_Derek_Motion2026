@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Transform enemyTransform;
     public GameObject bombPrefab;
     public Transform bombsTransform;
+    public Vector3 Offset;
 
     void Update()
     {
@@ -16,7 +17,9 @@ public class Player : MonoBehaviour
         {
             //when b key is pressed the bomb will be instantiated
             //we use gameobject's transfrom.position + the amount i want it to be off setted by, in our case it's 2
-            spawnbomboffset(transform.position + new Vector3(0,2,0));
+            //spawnbomboffset(transform.position + new Vector3(0,2,0));
+
+            SpawnBombAtOffset(Offset);//task 1
         }
         if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
@@ -28,7 +31,7 @@ public class Player : MonoBehaviour
         if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
            
-            warpDrive2(transform.position,enemyTransform.position, 0.5f);
+            WarpPlayer(transform.position,enemyTransform.position, 0.5f);
         }
 
     }
@@ -39,6 +42,11 @@ public class Player : MonoBehaviour
         GameObject bob = Instantiate(bombPrefab, inoffset, Quaternion.identity);
         //miss understood the bounus challenge
         StartCoroutine(die(bob));
+    }
+    public void SpawnBombAtOffset(Vector3 inoffset) //Task 1
+    {
+        GameObject bob = Instantiate(bombPrefab, transform.position + inoffset, Quaternion.identity);
+
     }
 
     public IEnumerator die(GameObject bob)
@@ -68,7 +76,7 @@ public class Player : MonoBehaviour
         //match the new ship vector with the actual gameobj pos
         transform.position = ship;
     }
-    public void warpDrive2(Vector2 ship,Vector2 enemy, float speed)
+    public void WarpPlayer(Vector2 ship,Vector2 enemy, float speed)
     {
         if (speed > 1)
         {
