@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public int numberOfTrailBombs;
     public float angle;
 
+
     void Update()
     {
         if (Keyboard.current.bKey.wasReleasedThisFrame)
@@ -30,13 +31,8 @@ public class Player : MonoBehaviour
         {
             SpawneBombOnRandomCorner(Random.Range(0, 1));//task 2
         }
-        if (Keyboard.current.wKey.wasReleasedThisFrame)
-        {
-            //when w key is pressed ship will move forward
-            //we use gameobject's simularly to the bomb but we off set during the method
-            //the float is the speed / amount the ship is moving forwards by
-            warpDrive(transform.position, 0.5f);
-        }
+
+        
         if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
             WarpPlayer(enemyTransform, 0.5f); //task 3
@@ -44,7 +40,13 @@ public class Player : MonoBehaviour
 
         angle = transform.eulerAngles.z;
 
-        
+
+        if (Keyboard.current.wKey.wasReleasedThisFrame)
+        {
+            warpDrive(transform.position, 2);
+            DetectAteroids(5, asteroidTransforms); //task 4
+        }
+
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -60,7 +62,6 @@ public class Player : MonoBehaviour
         GameObject bob = Instantiate(bombPrefab, transform.position + inoffset, Quaternion.identity);
         Destroy(bob, 5);
     }
-
     public void SpawnBombTrail(float BombSpacing, int NumberOfBombs)//task 1
     {
 
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
         switch (r)
         {
             case 0:
-                GameObject tl = Instantiate(bombPrefab, transform.position + Vector3.up+ Vector3.left + new Vector3(-inDistance, inDistance,0).normalized, Quaternion.identity);
+                GameObject tl = Instantiate(bombPrefab, transform.position + Vector3.up + Vector3.left + new Vector3(-inDistance, inDistance, 0).normalized, Quaternion.identity);
 
                 break;
             case 1:
@@ -95,10 +96,6 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-
-
-
-
     public IEnumerator die(GameObject bob)
     {
         //bomb is delayed for 3 seconds but still destroyed
@@ -108,19 +105,8 @@ public class Player : MonoBehaviour
 
         yield return (null);
     }
-
     public void warpDrive(Vector3 ship, float speed)
     {
-        //detects if speed is too high or too low before the rest of the code
-        //locks it back down.
-        if (speed > 1)
-        {
-            speed = 1;
-        }
-        if (speed < 0)
-        {
-            speed = 0;
-        }
         //vector3 of ship instead of transform.pos is here because trans.pos can not to adjusted like how i am using it for
         ship.y += speed;
         //match the new ship vector with the actual gameobj pos
@@ -139,4 +125,18 @@ public class Player : MonoBehaviour
 
         transform.position = Vector3.Lerp(transform.position, target.position, ratio);
     }
+
+    public void DetectAteroids(float inMaxRange, List<Transform> inAsteroids)//task 4
+    {
+        foreach (Transform A in inAsteroids)
+        {
+            float distance = Vector3.Distance(transform.position, A.position);
+            if (distance < inMaxRange)
+            {
+                Debug.DrawLine(transform.position, A.position, Color.yellow,10);
+            }
+        }
+    }
+
+
 }
