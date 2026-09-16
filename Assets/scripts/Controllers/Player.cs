@@ -35,15 +35,20 @@ public class Player : MonoBehaviour
         }
         if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
-           
-            WarpPlayer(transform.position,enemyTransform.position, 0.5f);
+
+            WarpPlayer(transform.position, enemyTransform.position, 0.5f);
         }
         angle = transform.eulerAngles.z;
+
+        if (Keyboard.current.rKey.wasReleasedThisFrame)
+        {
+            SpawneBombOnRandomCorner(Random.Range(0, 1));//task 1
+        }
 
     }
     public void spawnbomboffset(Vector3 inoffset)
     {
-        
+
         //Instantiated the bomb prefab, using the inoffset vector3 and keeping the rotation of the inoffset
         GameObject bob = Instantiate(bombPrefab, inoffset, Quaternion.identity);
         //miss understood the bounus challenge
@@ -57,18 +62,52 @@ public class Player : MonoBehaviour
 
     public void SpawnBombTrail(float BombSpacing, int NumberOfBombs)//task 1
     {
-      
+
         for (int i = 0; i < NumberOfBombs; i++)
         {
-            GameObject bob = Instantiate(bombPrefab, new Vector2(transform.position.x, transform.position.y - bombtrailspacing * (i+1)), transform.rotation*Quaternion.Euler(0, 0, angle));
-            
+            GameObject bob = Instantiate(bombPrefab, new Vector2(transform.position.x, transform.position.y - bombtrailspacing * (i + 1)), transform.rotation * Quaternion.Euler(0, 0, angle));
+
         }
     }
+
+    public void SpawneBombOnRandomCorner(float inDistance)//task 2
+    {
+        int r = Random.Range(0, 4);
+        switch (r)
+        {
+            case 0:
+                GameObject tl = Instantiate(bombPrefab, transform.position + Vector3.up+ Vector3.left + new Vector3(-inDistance, inDistance,0).normalized, Quaternion.identity);
+
+                break;
+            case 1:
+                GameObject tr = Instantiate(bombPrefab, transform.position + Vector3.up + Vector3.right + new Vector3(inDistance, inDistance, 0).normalized, Quaternion.identity);
+
+                break;
+
+            case 2:
+                GameObject bl = Instantiate(bombPrefab, transform.position + Vector3.down + Vector3.left + new Vector3(-inDistance, -inDistance, 0).normalized, Quaternion.identity);
+
+                break;
+            case 3:
+                GameObject br = Instantiate(bombPrefab, transform.position + Vector3.down + Vector3.right + new Vector3(inDistance, -inDistance, 0).normalized, Quaternion.identity);
+
+                break;
+        }
+    }
+
+
+
+
+
+
+
+
+
 
     public IEnumerator die(GameObject bob)
     {
         //bomb is delayed for 3 seconds but still destroyed
-        Destroy(bob,3);
+        Destroy(bob, 3);
         //says bomba so I know it works
         Debug.Log("bomba");
 
@@ -92,7 +131,7 @@ public class Player : MonoBehaviour
         //match the new ship vector with the actual gameobj pos
         transform.position = ship;
     }
-    public void WarpPlayer(Vector2 ship,Vector2 enemy, float speed)
+    public void WarpPlayer(Vector2 ship, Vector2 enemy, float speed)
     {
         if (speed > 1)
         {
@@ -103,7 +142,7 @@ public class Player : MonoBehaviour
             speed = 0;
         }
 
-        ship = Vector3.Lerp(ship,enemy,speed);
+        ship = Vector3.Lerp(ship, enemy, speed);
 
 
 
