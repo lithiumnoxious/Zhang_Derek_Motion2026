@@ -98,12 +98,6 @@ public class Player : MonoBehaviour
 
 
 
-
-
-
-
-
-
     public IEnumerator die(GameObject bob)
     {
         //bomb is delayed for 3 seconds but still destroyed
