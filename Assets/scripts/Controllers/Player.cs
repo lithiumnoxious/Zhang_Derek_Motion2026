@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     public void SpawnBombAtOffset(Vector3 inoffset) //Task 1
     {
         GameObject bob = Instantiate(bombPrefab, transform.position + inoffset, Quaternion.identity);
+        Destroy(bob, 5);
 
     }
 
