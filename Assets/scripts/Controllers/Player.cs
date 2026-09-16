@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
         {
             SpawnBombTrail(bombtrailspacing, numberOfTrailBombs);
         }
+        if (Keyboard.current.rKey.wasReleasedThisFrame)
+        {
+            SpawneBombOnRandomCorner(Random.Range(0, 1));//task 2
+        }
         if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
             //when w key is pressed ship will move forward
@@ -35,15 +39,12 @@ public class Player : MonoBehaviour
         }
         if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
-
-            WarpPlayer(transform.position, enemyTransform.position, 0.5f);
+            WarpPlayer(enemyTransform, 0.5f); //task 3
         }
+
         angle = transform.eulerAngles.z;
 
-        if (Keyboard.current.rKey.wasReleasedThisFrame)
-        {
-            SpawneBombOnRandomCorner(Random.Range(0, 1));//task 2
-        }
+        
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -125,21 +126,17 @@ public class Player : MonoBehaviour
         //match the new ship vector with the actual gameobj pos
         transform.position = ship;
     }
-    public void WarpPlayer(Vector2 ship, Vector2 enemy, float speed) //task 3
+    public void WarpPlayer(Transform target, float ratio) //task 3
     {
-        if (speed > 1)
+        if (ratio > 1)
         {
-            speed = 1;
+            ratio = 1;
         }
-        if (speed < 0)
+        if (ratio < 0)
         {
-            speed = 0;
+            ratio = 0;
         }
 
-        ship = Vector3.Lerp(ship, enemy, speed);
-
-
-
-        transform.position = ship;
+        transform.position = Vector3.Lerp(transform.position, target.position, ratio);
     }
 }
