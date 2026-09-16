@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
 
         if (Keyboard.current.rKey.wasReleasedThisFrame)
         {
-            SpawneBombOnRandomCorner(Random.Range(0, 1));//task 1
+            SpawneBombOnRandomCorner(Random.Range(0, 1));//task 2
         }
 
     }
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
         //match the new ship vector with the actual gameobj pos
         transform.position = ship;
     }
-    public void WarpPlayer(Vector2 ship, Vector2 enemy, float speed)
+    public void WarpPlayer(Vector2 ship, Vector2 enemy, float speed) //task 3
     {
         if (speed > 1)
         {
