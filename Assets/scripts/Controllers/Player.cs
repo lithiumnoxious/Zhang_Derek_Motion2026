@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 
     public void SpawnBombTrail(float BombSpacing, int NumberOfBombs)//task 1
     {
-        
+      
         for (int i = 0; i < NumberOfBombs; i++)
         {
             GameObject bob = Instantiate(bombPrefab, new Vector2(transform.position.x, transform.position.y - bombtrailspacing * (i+1)), transform.rotation*Quaternion.Euler(0, 0, angle));
