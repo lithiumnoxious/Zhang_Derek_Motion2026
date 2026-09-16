@@ -13,15 +13,13 @@ public class Player : MonoBehaviour
     public int bombtrailspacing;
 
     public int numberOfTrailBombs;
+    public float angle;
 
     void Update()
     {
         if (Keyboard.current.bKey.wasReleasedThisFrame)
         {
             //when b key is pressed the bomb will be instantiated
-            //we use gameobject's transfrom.position + the amount i want it to be off setted by, in our case it's 2
-            //spawnbomboffset(transform.position + new Vector3(0,2,0));
-
             SpawnBombAtOffset(inOffset);//task 1
         }
         if (Keyboard.current.tKey.wasReleasedThisFrame)
@@ -40,7 +38,7 @@ public class Player : MonoBehaviour
            
             WarpPlayer(transform.position,enemyTransform.position, 0.5f);
         }
-        
+        angle = transform.eulerAngles.z;
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -57,12 +55,12 @@ public class Player : MonoBehaviour
         Destroy(bob, 5);
     }
 
-    public void SpawnBombTrail(float BombSpacing, int NumberOfBombs)
+    public void SpawnBombTrail(float BombSpacing, int NumberOfBombs)//task 1
     {
-        float angle = transform.eulerAngles.z;
+        
         for (int i = 0; i < NumberOfBombs; i++)
         {
-            GameObject bob = Instantiate(bombPrefab, new Vector2(transform.position.x, transform.position.y - bombtrailspacing * i), transform.rotation*Quaternion.Euler(0, 0, angle));
+            GameObject bob = Instantiate(bombPrefab, new Vector2(transform.position.x, transform.position.y - bombtrailspacing * (i+1)), transform.rotation*Quaternion.Euler(0, 0, angle));
             
         }
     }
