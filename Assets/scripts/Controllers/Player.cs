@@ -17,12 +17,19 @@ public class Player : MonoBehaviour
 
     public Vector3 currentvelo = Vector3.right;
     public float speed;
+    public float maxspeed;
+    public float acceltime;
+    public float currentaccel;
+    public float decceltime;
+    public float deccel;
+    public bool booster;
 
     private void Start()
     {
-        transform.position = transform.position + currentvelo;
+        //transform.position = transform.position + currentvelo;
         //transform.position += Vector3.right;
-
+        currentaccel = maxspeed / acceltime;
+        deccel = maxspeed / decceltime;
     }
 
     void Update()
@@ -83,10 +90,11 @@ public class Player : MonoBehaviour
         //    PlayerMovement2(Vector3.down);
 
         //}
-        if (Keyboard.current.leftArrowKey.isPressed|| Keyboard.current.rightArrowKey.isPressed|| Keyboard.current.upArrowKey.isPressed|| Keyboard.current.downArrowKey.isPressed)
-        {
-            playermovement();
-        }
+        playermovement();
+        //if (Keyboard.current.leftArrowKey.isPressed|| Keyboard.current.rightArrowKey.isPressed|| Keyboard.current.upArrowKey.isPressed|| Keyboard.current.downArrowKey.isPressed)
+        //{
+        //    playermovement();
+        //}
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -180,25 +188,70 @@ public class Player : MonoBehaviour
     }
     public void playermovement()
     {
-        currentvelo = Vector3.zero;
+        Vector3 acceldirection = Vector3.zero;
+        //currentvelo = Vector3.zero;
         if (Keyboard.current.leftArrowKey.isPressed)
         {
-            currentvelo += Vector3.left;
+            acceldirection += Vector3.left;
+            booster = true;
         }
         if (Keyboard.current.rightArrowKey.isPressed)
         {
-            currentvelo += Vector3.right;
+            acceldirection += Vector3.right;
+            booster = true;
         }
         if (Keyboard.current.upArrowKey.isPressed)
         {
-            currentvelo += Vector3.up;
+            acceldirection += Vector3.up;
+            booster = true;
         }
         if (Keyboard.current.downArrowKey.isPressed)
         {
-            currentvelo += Vector3.down;
+            acceldirection += Vector3.down;
+            booster = true;
         }
-        currentvelo = currentvelo.normalized;
-        transform.position += currentvelo.normalized * speed * Time.deltaTime;
+        currentvelo += acceldirection.normalized * Time.deltaTime;
+        //if (currentvelo.x > maxspeed)
+        //{
+        //    currentvelo.x = maxspeed;
+        //}
+        //if (currentvelo.x < -maxspeed)
+        //{
+        //    currentvelo.x = -maxspeed;
+        //}
+
+        //if (currentvelo.y > maxspeed)
+        //{
+        //    currentvelo.y = maxspeed;
+        //}
+        //if(currentvelo.y < -maxspeed)
+        //{
+        //    currentvelo.y = -maxspeed;
+        //}
+        //aint no way this is the correct solution
+        //please tell me there is a better way to do things
+        if (currentvelo.magnitude > maxspeed)
+        {
+            currentvelo = currentvelo.normalized * maxspeed;
+            //oh excuse me, i didnt know normalized was goated like this
+            //take big mag number then normalize to tiny tiny number 1 
+            //then we x it with max speed
+        }
+
+        //if (!booster)
+        //{
+        //    float t = 0;
+        //    if(t == 10)
+        //    {
+        //        currentvelo = currentvelo.normalized / maxspeed;
+        //        booster = false;
+        //    }
+        //    t += 1*Time.deltaTime;
+        //}
+
+        
+
+        transform.position += currentvelo * speed * Time.deltaTime;
         //normalized is used to keep the continous movement stable
         //time.deltatime is used instead of frame rate also for stability sake
         ////furthermore time.deltatime is used when real life seconds matter ie gravity and projectiles
