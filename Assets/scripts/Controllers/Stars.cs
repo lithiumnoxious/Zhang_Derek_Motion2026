@@ -25,7 +25,7 @@ public class Stars : MonoBehaviour
     }
     public void draw()
     {
-        
+       
 
 
         Debug.DrawLine(currentstar, nextstar, Color.red, 10);
