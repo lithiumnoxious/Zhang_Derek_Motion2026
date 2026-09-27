@@ -19,7 +19,7 @@ public class Stars : MonoBehaviour
             currentstar = starTransforms[i].transform.position;
             nextstar = starTransforms[i + 1].transform.position;
 
-            
+          
             StartCoroutine(draw());
         }
     }
