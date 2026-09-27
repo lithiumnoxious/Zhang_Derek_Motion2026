@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         if (Keyboard.current.bKey.wasReleasedThisFrame)
         {
             //when b key is pressed the bomb will be instantiated
-            SpawnBombAtOffset(inOffset);//task 1
+            SpawnBombAtOffset(inOffset);//w2 task 1
         }
         if (Keyboard.current.tKey.wasReleasedThisFrame)
         {
@@ -52,13 +52,13 @@ public class Player : MonoBehaviour
         }
         if (Keyboard.current.rKey.wasReleasedThisFrame)
         {
-            SpawneBombOnRandomCorner(Random.Range(0, 1));//task 2
+            SpawneBombOnRandomCorner(Random.Range(0, 1));//w2 task 2
         }
 
 
         if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
-            WarpPlayer(enemyTransform, 0.5f); //task 3
+            WarpPlayer(enemyTransform, 0.5f); //w2 task 3
         }
 
         angle = transform.eulerAngles.z;
@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
             warpDrive(transform.position, 2);
-            DetectAteroids(5, asteroidTransforms); //task 4
+            DetectAteroids(5, asteroidTransforms); //w2 task 4
         }
 
         //if (Keyboard.current.leftArrowKey.isPressed)
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         //    PlayerMovement2(Vector3.down);
 
         //}
-        PlayerMovement();
+        PlayerMovement(); //w3 task 1
         //if (Keyboard.current.leftArrowKey.isPressed|| Keyboard.current.rightArrowKey.isPressed|| Keyboard.current.upArrowKey.isPressed|| Keyboard.current.downArrowKey.isPressed)
         //{
         //    playermovement();
@@ -192,43 +192,42 @@ public class Player : MonoBehaviour
     {
         transform.position += v.normalized * speed * Time.deltaTime;
     }
-    public void PlayerMovement()
+    public void PlayerMovement() //w3 task 1
     {
         Vector3 acceldirection = Vector3.zero;
         //currentvelo = Vector3.zero;
-        if (Keyboard.current.leftArrowKey.isPressed)
+        if (Keyboard.current.leftArrowKey.isPressed) //w3 task 1a
         {
             acceldirection += Vector3.left;
             booster = true;
             timer = 0;
         }
-        if (Keyboard.current.rightArrowKey.isPressed)
+        if (Keyboard.current.rightArrowKey.isPressed)//w3 task 1a
         {
             acceldirection += Vector3.right;
             booster = true;
             timer = 0;
         }
-        if (Keyboard.current.upArrowKey.isPressed)
+        if (Keyboard.current.upArrowKey.isPressed)//w3 task 1a
         {
             acceldirection += Vector3.up;
             booster = true;
             timer = 0;
         }
-        if (Keyboard.current.downArrowKey.isPressed)
+        if (Keyboard.current.downArrowKey.isPressed)//w3 task 1a
         {
             acceldirection += Vector3.down;
             booster = true;
             timer = 0;
         }
-        currentvelo += acceldirection.normalized * Time.deltaTime;
+        currentvelo += acceldirection.normalized * Time.deltaTime;//w3 task 1b
         transform.position += currentvelo * speed * Time.deltaTime;
 
         if (currentvelo.magnitude > maxspeed)
         {
             currentvelo = currentvelo.normalized * maxspeed;
         }
-
-        if (booster)
+        if (booster) //w3 task 1c
         {
             if (timer >= 1)
             {
@@ -239,7 +238,6 @@ public class Player : MonoBehaviour
                 timer += shipdeccel * Time.deltaTime;
             }
         }
-
         if (!booster)
         {
                 currentvelo -= currentvelo.normalized * Time.deltaTime;
