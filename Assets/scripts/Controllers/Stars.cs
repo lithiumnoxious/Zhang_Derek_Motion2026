@@ -19,7 +19,7 @@ public class Stars : MonoBehaviour
         {
             StartCoroutine(draw());
         }
-    }
+    } 
     IEnumerator draw()
     {
         for (int i = 0; i < starTransforms.Count - 1; i++)
