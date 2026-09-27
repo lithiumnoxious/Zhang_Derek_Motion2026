@@ -14,16 +14,23 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = new Vector3(transform.position.x + distancePick(), transform.position.y + distancePick(), 0);
-        StartCoroutine(Move());
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-
         arrivalDistance = Vector3.Distance(transform.position, target);
+
+        if (timer >= 5)
+        {
+            target = new Vector3(transform.position.x + distancePick(), transform.position.y + distancePick(), 0);
+            StartCoroutine(Move());
+            timer = 0;
+        }
+        timer += Time.deltaTime;
+        
+
     }
 
     public float distancePick()
@@ -34,9 +41,10 @@ public class Asteroid : MonoBehaviour
 
     public IEnumerator Move()
     {
-        while (arrivalDistance < 0.5f)
-        { 
-            transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+        float step = moveSpeed * Time.deltaTime;
+        while (arrivalDistance > 0.5f)
+        {
+            transform.position += Vector3.MoveTowards(transform.position, target, step);
         }
 
 
