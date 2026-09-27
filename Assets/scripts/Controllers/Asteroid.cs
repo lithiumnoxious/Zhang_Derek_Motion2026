@@ -21,7 +21,7 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
 
         arrivalDistance = Vector3.Distance(transform.position, target);
     }
