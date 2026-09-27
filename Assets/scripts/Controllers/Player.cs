@@ -23,13 +23,16 @@ public class Player : MonoBehaviour
     public float decceltime;
     public float deccel;
     public bool booster;
+    public float timer = 0;
+    public float shipdeccel;
+
 
     private void Start()
     {
         //transform.position = transform.position + currentvelo;
         //transform.position += Vector3.right;
-        currentaccel = maxspeed / acceltime;
-        deccel = maxspeed / decceltime;
+        //currentaccel = maxspeed / acceltime;
+        //deccel = maxspeed / decceltime;
     }
 
     void Update()
@@ -90,11 +93,12 @@ public class Player : MonoBehaviour
         //    PlayerMovement2(Vector3.down);
 
         //}
-        playermovement();
+        PlayerMovement();
         //if (Keyboard.current.leftArrowKey.isPressed|| Keyboard.current.rightArrowKey.isPressed|| Keyboard.current.upArrowKey.isPressed|| Keyboard.current.downArrowKey.isPressed)
         //{
         //    playermovement();
         //}
+        
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -138,6 +142,8 @@ public class Player : MonoBehaviour
                 GameObject br = Instantiate(bombPrefab, transform.position + Vector3.down + Vector3.right + new Vector3(inDistance, -inDistance, 0).normalized, Quaternion.identity);
                 break;
         }
+
+         
     }
     public IEnumerator die(GameObject bob)
     {
@@ -186,7 +192,7 @@ public class Player : MonoBehaviour
     {
         transform.position += v.normalized * speed * Time.deltaTime;
     }
-    public void playermovement()
+    public void PlayerMovement()
     {
         Vector3 acceldirection = Vector3.zero;
         //currentvelo = Vector3.zero;
@@ -194,42 +200,28 @@ public class Player : MonoBehaviour
         {
             acceldirection += Vector3.left;
             booster = true;
+            timer = 0;
         }
         if (Keyboard.current.rightArrowKey.isPressed)
         {
             acceldirection += Vector3.right;
             booster = true;
+            timer = 0;
         }
         if (Keyboard.current.upArrowKey.isPressed)
         {
             acceldirection += Vector3.up;
             booster = true;
+            timer = 0;
         }
         if (Keyboard.current.downArrowKey.isPressed)
         {
             acceldirection += Vector3.down;
             booster = true;
+            timer = 0;
         }
         currentvelo += acceldirection.normalized * Time.deltaTime;
-        //if (currentvelo.x > maxspeed)
-        //{
-        //    currentvelo.x = maxspeed;
-        //}
-        //if (currentvelo.x < -maxspeed)
-        //{
-        //    currentvelo.x = -maxspeed;
-        //}
 
-        //if (currentvelo.y > maxspeed)
-        //{
-        //    currentvelo.y = maxspeed;
-        //}
-        //if(currentvelo.y < -maxspeed)
-        //{
-        //    currentvelo.y = -maxspeed;
-        //}
-        //aint no way this is the correct solution
-        //please tell me there is a better way to do things
         if (currentvelo.magnitude > maxspeed)
         {
             currentvelo = currentvelo.normalized * maxspeed;
@@ -237,19 +229,23 @@ public class Player : MonoBehaviour
             //take big mag number then normalize to tiny tiny number 1 
             //then we x it with max speed
         }
+        if (booster)
+        {
+            timer += shipdeccel * Time.deltaTime;
+            if (timer >= 10)
+            {
+                booster = false;
+            }
+            
+        }
 
-        //if (!booster)
-        //{
-        //    float t = 0;
-        //    if(t == 10)
-        //    {
-        //        currentvelo = currentvelo.normalized / maxspeed;
-        //        booster = false;
-        //    }
-        //    t += 1*Time.deltaTime;
-        //}
+        if (!booster || currentaccel < 0)
+        {
+            currentvelo -= currentvelo.normalized * Time.deltaTime;
+        }
 
-        
+
+
 
         transform.position += currentvelo * speed * Time.deltaTime;
         //normalized is used to keep the continous movement stable
