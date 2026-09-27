@@ -2467,8 +2467,14 @@ MonoBehaviour:
   - {fileID: 366221042}
   - {fileID: 426582573}
   - {fileID: 2257695664884323191}
-  drawingTime: 5
+  drawingTime: 0.1
   t: 0
+  currentstar: {x: 0, y: 0, z: 0}
+  nextstar: {x: 0, y: 0, z: 0}
+  StarSet: 0
+  linecomplete: 0
+  currentEnd: {x: 0, y: 0, z: 0}
+  dist: 0
 --- !u!4 &1573207886
 Transform:
   m_ObjectHideFlags: 0
