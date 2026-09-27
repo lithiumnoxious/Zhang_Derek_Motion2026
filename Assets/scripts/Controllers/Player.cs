@@ -38,8 +38,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         //transform.position = transform.position + currentvelo;
-      
-        
+
+
 
         if (Keyboard.current.bKey.wasReleasedThisFrame)
         {
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
             SpawneBombOnRandomCorner(Random.Range(0, 1));//task 2
         }
 
-        
+
         if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
             WarpPlayer(enemyTransform, 0.5f); //task 3
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
         //{
         //    playermovement();
         //}
-        
+
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -143,7 +143,7 @@ public class Player : MonoBehaviour
                 break;
         }
 
-         
+
     }
     public IEnumerator die(GameObject bob)
     {
@@ -180,13 +180,13 @@ public class Player : MonoBehaviour
             float distance = Vector3.Distance(transform.position, A.position);
             if (distance < inMaxRange)
             {
-                Debug.DrawLine(transform.position, A.position, Color.yellow,10);
+                Debug.DrawLine(transform.position, A.position, Color.yellow, 10);
             }
         }
     }
-    public void PlayerMovement3(int x,int y, int z)
+    public void PlayerMovement3(int x, int y, int z)
     {
-        transform.position += new Vector3(x,y,z);
+        transform.position += new Vector3(x, y, z);
     }
     public void PlayerMovement2(Vector3 v)
     {
@@ -221,33 +221,33 @@ public class Player : MonoBehaviour
             timer = 0;
         }
         currentvelo += acceldirection.normalized * Time.deltaTime;
+        transform.position += currentvelo * speed * Time.deltaTime;
 
         if (currentvelo.magnitude > maxspeed)
         {
             currentvelo = currentvelo.normalized * maxspeed;
-            //oh excuse me, i didnt know normalized was goated like this
-            //take big mag number then normalize to tiny tiny number 1 
-            //then we x it with max speed
         }
+
         if (booster)
         {
-            timer += shipdeccel * Time.deltaTime;
-            if (timer >= 10)
+            if (timer >= 1)
             {
                 booster = false;
             }
-            
+            else
+            {
+                timer += shipdeccel * Time.deltaTime;
+            }
         }
 
-        if (!booster || currentaccel < 0)
+        if (!booster)
         {
-            currentvelo -= currentvelo.normalized * Time.deltaTime;
+                currentvelo -= currentvelo.normalized * Time.deltaTime;
         }
 
 
 
 
-        transform.position += currentvelo * speed * Time.deltaTime;
         //normalized is used to keep the continous movement stable
         //time.deltatime is used instead of frame rate also for stability sake
         ////furthermore time.deltatime is used when real life seconds matter ie gravity and projectiles
