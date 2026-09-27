@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Asteroid : MonoBehaviour
@@ -14,40 +11,33 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        target = targetSelect();
     }
 
     // Update is called once per frame
     void Update()
     {
         arrivalDistance = Vector3.Distance(transform.position, target);
+        Move();
 
-        if (timer >= 5)
+        if (arrivalDistance < 0.5f)
         {
-            target = new Vector3(transform.position.x + distancePick(), transform.position.y + distancePick(), 0);
-            StartCoroutine(Move());
-            timer = 0;
+            target = targetSelect();
         }
-        timer += Time.deltaTime;
-        
-
     }
 
+    public void Move()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+    }
     public float distancePick()
     {
-        float r = Random.Range(0,maxFloatDistance);
+        float r = Random.Range(-maxFloatDistance, maxFloatDistance);
         return (r);
     }
-
-    public IEnumerator Move()
+    public Vector3 targetSelect()
     {
-        float step = moveSpeed * Time.deltaTime;
-        while (arrivalDistance > 0.5f)
-        {
-            transform.position += Vector3.MoveTowards(transform.position, target, step);
-        }
-
-
-        yield return null;
+        Vector3 temp = new Vector3(transform.position.x + distancePick(), transform.position.y + distancePick(), 0);
+        return (temp);
     }
 }
