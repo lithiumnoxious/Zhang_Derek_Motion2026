@@ -20,15 +20,15 @@ public class Stars : MonoBehaviour
             nextstar = starTransforms[i + 1].transform.position;
 
           
-            StartCoroutine(draw());
+            draw();
         }
     }
-    IEnumerator draw()
+    public void draw()
     {
         
 
 
-        //Debug.DrawLine(currentstar, starmag, Color.red, 10);
-        yield return new WaitForEndOfFrame();
+        Debug.DrawLine(currentstar, nextstar, Color.red, 10);
+        //yield return new WaitForEndOfFrame();
     }
 }
