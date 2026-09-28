@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     public float shipdeccel;
 
 
+    public int circlesides;
+
+
     private void Start()
     {
         //transform.position = transform.position + currentvelo;
@@ -52,7 +55,7 @@ public class Player : MonoBehaviour
         }
         if (Keyboard.current.rKey.wasReleasedThisFrame)
         {
-            SpawneBombOnRandomCorner(Random.Range(0, 1));//w2 task 2
+            //SpawneBombOnRandomCorner(Random.Range(0, 1));//w2 task 2
         }
 
 
@@ -98,7 +101,10 @@ public class Player : MonoBehaviour
         //{
         //    playermovement();
         //}
-
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            drawcicle(circlesides);
+        }
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -124,27 +130,27 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SpawneBombOnRandomCorner(float inDistance)//task 2
-    {
-        int r = Random.Range(0, 4);
-        switch (r)
-        {
-            case 0:
-                GameObject tl = Instantiate(bombPrefab, transform.position + Vector3.up + Vector3.left + new Vector3(-inDistance, inDistance, 0).normalized, Quaternion.identity);
-                break;
-            case 1:
-                GameObject tr = Instantiate(bombPrefab, transform.position + Vector3.up + Vector3.right + new Vector3(inDistance, inDistance, 0).normalized, Quaternion.identity);
-                break;
-            case 2:
-                GameObject bl = Instantiate(bombPrefab, transform.position + Vector3.down + Vector3.left + new Vector3(-inDistance, -inDistance, 0).normalized, Quaternion.identity);
-                break;
-            case 3:
-                GameObject br = Instantiate(bombPrefab, transform.position + Vector3.down + Vector3.right + new Vector3(inDistance, -inDistance, 0).normalized, Quaternion.identity);
-                break;
-        }
+    //public void SpawneBombOnRandomCorner(float inDistance)//task 2
+    //{
+    //    int r = Random.Range(0, 4);
+    //    switch (r)
+    //    {
+    //        case 0:
+    //            GameObject tl = Instantiate(bombPrefab, transform.position + Vector3.up + Vector3.left + new Vector3(-inDistance, inDistance, 0).normalized, Quaternion.identity);
+    //            break;
+    //        case 1:
+    //            GameObject tr = Instantiate(bombPrefab, transform.position + Vector3.up + Vector3.right + new Vector3(inDistance, inDistance, 0).normalized, Quaternion.identity);
+    //            break;
+    //        case 2:
+    //            GameObject bl = Instantiate(bombPrefab, transform.position + Vector3.down + Vector3.left + new Vector3(-inDistance, -inDistance, 0).normalized, Quaternion.identity);
+    //            break;
+    //        case 3:
+    //            GameObject br = Instantiate(bombPrefab, transform.position + Vector3.down + Vector3.right + new Vector3(inDistance, -inDistance, 0).normalized, Quaternion.identity);
+    //            break;
+    //    }
 
 
-    }
+    //}
     public IEnumerator die(GameObject bob)
     {
         //bomb is delayed for 3 seconds but still destroyed
@@ -240,7 +246,7 @@ public class Player : MonoBehaviour
         }
         if (!booster)
         {
-                currentvelo -= currentvelo.normalized * Time.deltaTime;
+            currentvelo -= currentvelo.normalized * Time.deltaTime;
         }
 
 
@@ -249,5 +255,43 @@ public class Player : MonoBehaviour
         //normalized is used to keep the continous movement stable
         //time.deltatime is used instead of frame rate also for stability sake
         ////furthermore time.deltatime is used when real life seconds matter ie gravity and projectiles
+    }
+
+    public float circleradius;
+
+    public void drawcicle(int sides)
+    {
+        float Firstdiv = 360f / sides;
+        float Si;
+        float oldSi;
+        for (float i = 0; i < sides; i++)
+        {
+            Si = Firstdiv * (i + 1);
+            oldSi = Si;
+            Debug.Log(Si);
+
+            float tempX = mathCos(Si);
+            float tempY = mathSin(oldSi);
+
+
+
+            Vector3 startP = transform.position;
+            Vector3 EndP = new Vector3(tempX, tempY) * circleradius + transform.position;
+            Debug.DrawLine(startP, EndP, Color.darkSeaGreen, 5);
+
+
+        }
+    }
+
+
+    public float mathCos(float angle)
+    {
+        float ra = Mathf.Cos(angle * Mathf.Deg2Rad); // only use radian
+        return (ra);
+    }
+    public float mathSin(float angle)
+    {
+        float ra = Mathf.Sin(angle * Mathf.Deg2Rad); // only use radian
+        return (ra);
     }
 }
