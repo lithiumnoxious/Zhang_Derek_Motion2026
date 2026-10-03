@@ -318,9 +318,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
-
-
     public void SpawnPowerups(float radius, int numberOfPowerups)
     {
         float Firstdiv = 360f / numberOfPowerups;
