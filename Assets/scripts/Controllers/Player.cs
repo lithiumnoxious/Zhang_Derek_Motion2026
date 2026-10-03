@@ -331,9 +331,9 @@ public class Player : MonoBehaviour
             float tempX = mathCos(powerpos);
             float tempY = mathSin(powerpos);
 
-            Vector3 startP = new Vector3(tempX, tempY) * radius + transform.position;
+            Vector3 powerP = new Vector3(tempX, tempY) * radius + transform.position;
 
-            GameObject powerup = Instantiate(pPower, startP, Quaternion.identity);
+            GameObject powerup = Instantiate(pPower, powerP, Quaternion.identity);
             Destroy(powerup,5 );
         }
     }
