@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     public int circlesides;
 
-
+    public GameObject enemy;
     private void Start()
     {
         //transform.position = transform.position + currentvelo;
@@ -103,8 +103,9 @@ public class Player : MonoBehaviour
         //}
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            drawcicle(circlesides);
+            EnemyRadar(circlesides);
         }
+        EnemyRadar(circlesides);
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -258,28 +259,49 @@ public class Player : MonoBehaviour
     }
 
     public float circleradius;
+    public float enemydist;
 
-    public void drawcicle(int sides)
+    public void EnemyRadar(int points)
     {
-        float Firstdiv = 360f / sides;
+        float Firstdiv = 360f / points;
         float Si;
         float oldSi;
-        for (float i = 0; i < sides; i++)
+        float tempX;
+        float tempY;
+        float tempX2 = 0;
+        float tempY2 = 0;
+
+        for (float i = 0; i < points+1; i++)
         {
-            Si = Firstdiv * (i + 1);
+            Si = Firstdiv * (i);
             oldSi = Si;
-            Debug.Log(Si);
+            //Debug.Log(Si); testing if the sides added up to 360
 
-            float tempX = mathCos(Si);
-            float tempY = mathSin(oldSi);
+            tempX = mathCos(Si);
+            tempY = mathSin(oldSi);
+
+            if (i == 0)
+            {
+                tempX2 = tempX;
+                tempY2 = tempY;
+            }
+            
+            Vector3 startP = new Vector3(tempX, tempY) * circleradius + transform.position;
+            Vector3 EndP = new Vector3(tempX2, tempY2) * circleradius + transform.position;
+
+            tempX2 = tempX;
+            tempY2 = tempY;
 
 
-
-            Vector3 startP = transform.position;
-            Vector3 EndP = new Vector3(tempX, tempY) * circleradius + transform.position;
-            Debug.DrawLine(startP, EndP, Color.darkSeaGreen, 5);
-
-
+            enemydist = Vector2.Distance(transform.position, enemy.transform.position);
+            if (enemydist-0.5 < circleradius )
+            {
+                Debug.DrawLine(startP, EndP, Color.red);
+            }
+            else
+            {
+                Debug.DrawLine(startP, EndP, Color.darkSeaGreen);
+            }
         }
     }
 
