@@ -29,10 +29,13 @@ public class Player : MonoBehaviour
 
     public int circlesides;
     public float circleradius;
+    public GameObject enemy;
+
 
     public float powerRadius;
     public int powerNum;
-    public GameObject enemy;
+    public GameObject pPower;
+
     private void Start()
     {
         //transform.position = transform.position + currentvelo;
@@ -316,15 +319,27 @@ public class Player : MonoBehaviour
     }
 
 
-    
+
 
     public void SpawnPowerups(float radius, int numberOfPowerups)
     {
         float Firstdiv = 360f / numberOfPowerups;
+        float powerpos;
 
+        for (float i = 0; i < numberOfPowerups + 1; i++)
+        {
+            powerpos = Firstdiv * (i);
+            Debug.Log(powerpos); //testing if the sides added up to 360
 
+            float tempX = mathCos(powerpos);
+            float tempY = mathSin(powerpos);
+
+            Vector3 startP = new Vector3(tempX, tempY) * radius + transform.position;
+
+            GameObject powerup = Instantiate(pPower, startP, Quaternion.identity);
+            Destroy(powerup,5 );
+        }
     }
-
 
 
     public float mathCos(float angle)
