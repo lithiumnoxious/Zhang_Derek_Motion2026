@@ -28,7 +28,10 @@ public class Player : MonoBehaviour
 
 
     public int circlesides;
+    public float circleradius;
 
+    public float powerRadius;
+    public int powerNum;
     public GameObject enemy;
     private void Start()
     {
@@ -102,12 +105,17 @@ public class Player : MonoBehaviour
         //    playermovement();
         //}
 
-        EnemyRadar(circlesides);
+        EnemyRadar(circleradius,circlesides);
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
-            EnemyRadar(circlesides);
+            EnemyRadar(circleradius,circlesides);
         }
-        
+
+
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            SpawnPowerups(powerRadius, powerNum);
+        }
 
     }
     public void spawnbomboffset(Vector3 inoffset)
@@ -260,10 +268,10 @@ public class Player : MonoBehaviour
         ////furthermore time.deltatime is used when real life seconds matter ie gravity and projectiles
     }
 
-    public float circleradius;
+    
     public float enemydist;
 
-    public void EnemyRadar(int points)
+    public void EnemyRadar(float radius, int points)
     {
         float Firstdiv = 360f / points;
         float Si;
@@ -288,15 +296,15 @@ public class Player : MonoBehaviour
                 tempY2 = tempY;
             }
             
-            Vector3 startP = new Vector3(tempX, tempY) * circleradius + transform.position;
-            Vector3 EndP = new Vector3(tempX2, tempY2) * circleradius + transform.position;
+            Vector3 startP = new Vector3(tempX, tempY) * radius + transform.position;
+            Vector3 EndP = new Vector3(tempX2, tempY2) * radius + transform.position;
 
             tempX2 = tempX;
             tempY2 = tempY;
 
 
             enemydist = Vector2.Distance(transform.position, enemy.transform.position);
-            if (enemydist-0.5 < circleradius )
+            if (enemydist-0.5 < radius )
             {
                 Debug.DrawLine(startP, EndP, Color.red);
             }
@@ -306,6 +314,17 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+
+    
+
+    public void SpawnPowerups(float radius, int numberOfPowerups)
+    {
+        float Firstdiv = 360f / numberOfPowerups;
+
+
+    }
+
 
 
     public float mathCos(float angle)
