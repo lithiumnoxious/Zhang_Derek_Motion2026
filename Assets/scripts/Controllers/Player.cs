@@ -101,11 +101,13 @@ public class Player : MonoBehaviour
         //{
         //    playermovement();
         //}
+
+        EnemyRadar(circlesides);
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             EnemyRadar(circlesides);
         }
-        EnemyRadar(circlesides);
+        
 
     }
     public void spawnbomboffset(Vector3 inoffset)
