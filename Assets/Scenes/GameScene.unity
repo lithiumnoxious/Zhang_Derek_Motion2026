@@ -1273,11 +1273,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.1
+      value: -6.06
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.03
+      value: 7.46
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1317,7 +1317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114516115454935764, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: rotspeed
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1372,7 +1372,9 @@ MonoBehaviour:
   portal1: {fileID: 4843921090812581436, guid: 3a7e91f8283ee1c4c895401ccbebe39d, type: 3}
   portal2: {fileID: 1882163840979909131, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
   playerPos: {fileID: 1206840015}
+  enemypos: {fileID: 1693222674}
   PortalSpawnTimer: 0
+  PortalTimerDelay: 0
   difficulty: 1
   spawnRange: 5
 --- !u!4 &1075399808
@@ -1819,6 +1821,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4194190890010494449, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
   m_PrefabInstance: {fileID: 2097146127}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1288323092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1288323094}
+  - component: {fileID: 1288323093}
+  m_Layer: 0
+  m_Name: tan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1288323093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288323092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d391e30699739b4abfc5cdb16662217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::tan
+  player: {fileID: 1206840015}
+--- !u!4 &1288323094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288323092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1307428405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3573,11 +3620,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: shipdeccel
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: circlesides
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: powerRadius
@@ -3854,6 +3901,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5829606563127551293, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1693222674}
+    - target: {fileID: 5829606563127551293, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1206840015}
@@ -3979,6 +4030,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2085900448259993323, guid: 3a7e91f8283ee1c4c895401ccbebe39d, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1693222674}
     - target: {fileID: 2085900448259993323, guid: 3a7e91f8283ee1c4c895401ccbebe39d, type: 3}
       propertyPath: player
       value: 
@@ -4203,3 +4258,4 @@ SceneRoots:
   - {fileID: 5506756568104766316}
   - {fileID: 2422912908377895715}
   - {fileID: 1075399808}
+  - {fileID: 1288323094}

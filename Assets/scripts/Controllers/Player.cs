@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public List<Transform> asteroidTransforms;
     public Transform enemyTransform;
     public GameObject bombPrefab;
-    public Transform bombsTransform;
+    //public Transform bombsTransform;
     public Vector3 inOffset;
     public int bombtrailspacing;
 
@@ -18,10 +18,10 @@ public class Player : MonoBehaviour
     public Vector3 currentvelo = Vector3.right;
     public float speed;
     public float maxspeed;
-    public float acceltime;
-    public float currentaccel;
-    public float decceltime;
-    public float deccel;
+    //public float acceltime;
+    //public float currentaccel;
+    //public float decceltime;
+    //public float deccel;
     public bool booster;
     public float timer = 0;
     public float shipdeccel;

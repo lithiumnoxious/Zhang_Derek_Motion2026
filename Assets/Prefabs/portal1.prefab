@@ -136,3 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695b0a7c6ce9ad448bb2d079b1efd9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::portal
+  player: {fileID: 0}
+  portalP: {fileID: 0}
+  distance: 0
+  teleportTrigger: 1

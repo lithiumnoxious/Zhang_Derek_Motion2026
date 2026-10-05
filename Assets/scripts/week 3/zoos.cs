@@ -25,7 +25,7 @@ public class zoos : MonoBehaviour
             {
                 Debug.Log(animal);
             }
-            //animals.RemoveAt(0);
+            animals.Clear();
         }
     }
 }

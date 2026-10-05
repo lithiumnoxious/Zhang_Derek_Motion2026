@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::portal
   player: {fileID: 0}
+  portalP: {fileID: 0}
   distance: 0
+  teleportTrigger: 1
 --- !u!1 &2000046165397247331
 GameObject:
   m_ObjectHideFlags: 0
