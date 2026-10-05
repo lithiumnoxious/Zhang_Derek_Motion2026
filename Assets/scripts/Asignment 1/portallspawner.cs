@@ -35,6 +35,12 @@ public class portallspawner : MonoBehaviour
             GameObject rift1 = Instantiate(portal1,riftpos, Quaternion.identity);
             GameObject rift2 = Instantiate(portal1, -riftpos, Quaternion.identity);
 
+            //SpriteRenderer sr1 = rift1.GetComponent<SpriteRenderer>();
+            //SpriteRenderer sr2 = rift2.GetComponent<SpriteRenderer>();
+            //sr1.color = new Color(Random.Range(0,200), Random.Range(0, 200), Random.Range(0, 200));
+            //sr2.color = new Color(Random.Range(0, 200), Random.Range(0, 200), Random.Range(0, 200));
+
+
             portal script1 = rift1.GetComponent<portal>();
             portal script2 = rift2.GetComponent<portal>();
             script1.player = playerPos;
@@ -48,8 +54,8 @@ public class portallspawner : MonoBehaviour
 
             script2.portalP = rift2;
 
-            Destroy (rift1,5);
-            Destroy (rift2,5);
+            Destroy (rift1,5/difficulty);
+            Destroy (rift2,5/difficulty);
 
 
             PortalSpawnTimer = 0;

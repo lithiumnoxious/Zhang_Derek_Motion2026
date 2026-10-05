@@ -15,9 +15,9 @@ public class lloker : MonoBehaviour
     {
         activetarget = targets[targetnum];
 
-        Vector3 facingdirection = transform.forward;
-        float facingdegrees = tan.vectortoangle(facingdirection);
-        Debug.Log(facingdegrees);
+        //Vector3 facingdirection = transform.forward;
+        //float facingdegrees = tan.vectortoangle(facingdirection);
+        //Debug.Log(facingdegrees);
     }
 
     // Update is called once per frame
@@ -25,6 +25,7 @@ public class lloker : MonoBehaviour
     {
         float rot = tan.vectortoangle(activetarget.position);
         float rot1 = tan.vectortoangle(targets[0].position);
+
 
         if (!Keyboard.current.shiftKey.isPressed)
         {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class tan : MonoBehaviour
 {
-    public GameObject player;
+    //public GameObject player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,7 +17,7 @@ public class tan : MonoBehaviour
         //Debug.Log(secondVectorX);
 
 
-        Debug.Log(vectortoangle(player.transform.position));
+        //Debug.Log(vectortoangle(player.transform.position));
 
     }
 
@@ -25,6 +25,9 @@ public class tan : MonoBehaviour
     void Update()
     {
         
+
+
+
     }
 
     public static float vectortoangle(Vector3 vector)
