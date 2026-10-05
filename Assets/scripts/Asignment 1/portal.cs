@@ -3,7 +3,7 @@ using UnityEngine;
 public class portal : MonoBehaviour
 {
     public GameObject player;
-    public GameObject portal2;
+    public GameObject portalP;
     public float distance;
     public float teleportTrigger = 0.5f;
     static public bool riftCooldown;
@@ -24,7 +24,7 @@ public class portal : MonoBehaviour
         {
             if (distance < teleportTrigger)
             {
-                player.transform.position = portal2.transform.position;
+                player.transform.position = portalP.transform.position;
                 riftCooldownDuration = 0;
                 riftCooldown = true;
             }

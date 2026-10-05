@@ -1340,6 +1340,56 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4194190890010494449, guid: 462add3d0f7c62a4682e9c053b00ec93, type: 3}
   m_PrefabInstance: {fileID: 1490275575}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1075399806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1075399808}
+  - component: {fileID: 1075399807}
+  m_Layer: 0
+  m_Name: portallspawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1075399807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075399806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056ae110a5ba13c44804411ccbd3e188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::portallspawner
+  portal1: {fileID: 4843921090812581436, guid: 3a7e91f8283ee1c4c895401ccbebe39d, type: 3}
+  portal2: {fileID: 1882163840979909131, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
+  playerPos: {fileID: 1206840015}
+  PortalSpawnTimer: 0
+  difficulty: 1
+  spawnRange: 5
+--- !u!4 &1075399808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075399806}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.19267, y: -0.56443, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1088617404
 GameObject:
   m_ObjectHideFlags: 0
@@ -3523,7 +3573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: shipdeccel
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: circlesides
@@ -3761,7 +3811,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1882163840979909131, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
       propertyPath: m_Name
-      value: portal (1)
+      value: portal2
       objectReference: {fileID: 0}
     - target: {fileID: 5810652717382909760, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3812,12 +3862,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7671595099909855035}
     - target: {fileID: 5829606563127551293, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
+      propertyPath: portalP
+      value: 
+      objectReference: {fileID: 7671595099909855035}
+    - target: {fileID: 5829606563127551293, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
       propertyPath: riftCooldown
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5829606563127551293, guid: bdd19821138f20844a194c0d217f71b0, type: 3}
       propertyPath: teleportTrigger
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3934,12 +3988,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4042553526844628518}
     - target: {fileID: 2085900448259993323, guid: 3a7e91f8283ee1c4c895401ccbebe39d, type: 3}
+      propertyPath: portalP
+      value: 
+      objectReference: {fileID: 4042553526844628518}
+    - target: {fileID: 2085900448259993323, guid: 3a7e91f8283ee1c4c895401ccbebe39d, type: 3}
       propertyPath: teleportTrigger
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4843921090812581436, guid: 3a7e91f8283ee1c4c895401ccbebe39d, type: 3}
       propertyPath: m_Name
-      value: portal
+      value: portal1
       objectReference: {fileID: 0}
     - target: {fileID: 8250475085979308584, guid: 3a7e91f8283ee1c4c895401ccbebe39d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4144,3 +4202,4 @@ SceneRoots:
   - {fileID: 1497067534}
   - {fileID: 5506756568104766316}
   - {fileID: 2422912908377895715}
+  - {fileID: 1075399808}

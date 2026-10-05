@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class portallspawner : MonoBehaviour
 {
-
-
+    public GameObject portal1;
+    public GameObject portal2;
+    public GameObject playerPos;
+    public float PortalSpawnTimer;
+    public float difficulty;
+    public float spawnRange;
+    //public portal p;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,6 +19,31 @@ public class portallspawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+
+
+
+        PortalSpawnTimer += 1 * Time.deltaTime * difficulty;
+        if (PortalSpawnTimer >= 5)
+        {
+            Vector3 riftpos = new Vector3(Random.Range(0, spawnRange), Random.Range(0, spawnRange),0);
+            GameObject rift1 = Instantiate(portal1,riftpos, Quaternion.identity);
+            GameObject rift2 = Instantiate(portal1, -riftpos, Quaternion.identity);
+            
+            portal script1 = rift1.GetComponent<portal> ();
+            portal script2 = rift2.GetComponent<portal>();
+            script1.player = playerPos;
+            script2.player = playerPos;
+            script1.portalP = rift2;
+            script2.portalP = rift1;
+            Destroy (rift1,5);
+            Destroy (rift2,5);
+
+
+            PortalSpawnTimer = 0;
+        }
+
+
+
     }
 }
