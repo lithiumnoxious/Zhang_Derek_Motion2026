@@ -5,7 +5,7 @@ public class portal : MonoBehaviour
     public GameObject player;
     public GameObject portal2;
     public float distance;
-    public float teleportTrigger;
+    public float teleportTrigger = 0.5f;
     static public bool riftCooldown;
     static public float riftCooldownDuration;
 
