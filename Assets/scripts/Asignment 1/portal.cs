@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class portal : MonoBehaviour
@@ -14,15 +13,29 @@ public class portal : MonoBehaviour
     static public float riftCooldownDuration;
     public bool differentiateColor;
     SpriteRenderer sr;
+    Color c;
+    //float r; float g; float b;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
         sr = GetComponent<SpriteRenderer>();
-        if (differentiateColor)
-        {
-            sr.color = Color.red;
-        }
+        //r = Random.Range(0.5f, 1);
+        //g = Random.Range(0.5f, 1);
+        //b = Random.Range(0.5f, 1);
+        //sr.color = new Color(r, g, b);
+        //c = sr.color;
+
+        //if (differentiateColor)
+        //{
+        //    //sr.color = Color.red;
+        //    c = new Color(r - 0.2f, g - 0.2f, b - 0.2f);
+        //    sr.color = c;
+        //}
+
+
+
 
 
     }
@@ -30,6 +43,8 @@ public class portal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         pDistance = Vector2.Distance(transform.position, Player.playerPos.position);
         eDistance = Vector2.Distance(transform.position, Enemy.enemyPos.position);
 
@@ -52,7 +67,7 @@ public class portal : MonoBehaviour
         else
         {
             riftCooldownDuration += 1 * Time.deltaTime;
-            if(riftCooldownDuration >= 5)
+            if (riftCooldownDuration >= 5)
             {
                 riftCooldown = false;
             }

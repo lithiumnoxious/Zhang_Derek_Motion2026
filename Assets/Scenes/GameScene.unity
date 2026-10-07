@@ -1508,11 +1508,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056ae110a5ba13c44804411ccbd3e188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::portallspawner
-  portal: {fileID: 855432605372167895, guid: f66ef8ec26013674c932c3f768812919, type: 3}
+  portal: {fileID: 246761788340066450, guid: 27a72a54faab5a947a828db992dc4a66, type: 3}
   PortalSpawnTimer: 0
   PortalTimerDelay: 5
   difficulty: 1
   spawnRange: 5
+  Color1: {r: 0, g: 0, b: 0, a: 0}
+  Color2: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1075399808
 Transform:
   m_ObjectHideFlags: 0

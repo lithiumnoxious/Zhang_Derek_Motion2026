@@ -31,7 +31,10 @@ public class portallspawner : MonoBehaviour
         PortalSpawnTimer += 1 * Time.deltaTime * difficulty;
         if (PortalSpawnTimer >= 5)
         {
-            Vector3 riftpos = new Vector3(Random.Range(0, spawnRange), Random.Range(0, spawnRange),0);
+
+
+
+            Vector3 riftpos = new Vector3(Random.Range(0, spawnRange) + spawnRange/2, Random.Range(0, spawnRange) + spawnRange/2,0);
             GameObject rift1 = Instantiate(portal,riftpos, Quaternion.identity);
             GameObject rift2 = Instantiate(portal, -riftpos, Quaternion.identity);
 
@@ -44,6 +47,7 @@ public class portallspawner : MonoBehaviour
             portal script1 = rift1.GetComponent<portal>();
             portal script2 = rift2.GetComponent<portal>();
             script2.differentiateColor = true;
+
             //script1.player = playerPos;
             //script1.enemy = enemypos;
 
@@ -52,13 +56,10 @@ public class portallspawner : MonoBehaviour
 
 
             script1.portalP = rift2;
-
             script2.portalP = rift1;
 
             Destroy (rift1,5/difficulty);
             Destroy (rift2,5/difficulty);
-
-
             PortalSpawnTimer = 0;
         }
 
