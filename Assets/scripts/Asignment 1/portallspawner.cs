@@ -50,9 +50,9 @@ public class portallspawner : MonoBehaviour
             script2.enemy = enemypos;
 
 
-            script1.portalP = rift1;
+            script1.portalP = rift2;
 
-            script2.portalP = rift2;
+            script2.portalP = rift1;
 
             Destroy (rift1,5/difficulty);
             Destroy (rift2,5/difficulty);
