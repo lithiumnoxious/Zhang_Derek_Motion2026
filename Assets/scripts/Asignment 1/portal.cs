@@ -12,8 +12,9 @@ public class portal : MonoBehaviour
     static public bool riftCooldown;
     static public float riftCooldownDuration;
     public bool differentiateColor;
+    public float colordifference;
     SpriteRenderer sr;
-    Color c;
+    public Color c;
     //float r; float g; float b;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,6 +22,40 @@ public class portal : MonoBehaviour
     {
 
         sr = GetComponent<SpriteRenderer>();
+        int r = Random.Range(0, 4);
+
+        switch (r)
+        {
+            case 0:
+                sr.color = Color.red;
+                c = sr.color;
+                break;
+            case 1:
+                sr.color = Color.blue;
+                c = sr.color;
+                break;
+            case 2:
+                sr.color = Color.yellow;
+                c = sr.color;
+                break;
+            case 3:
+                sr.color = Color.green;
+                c = sr.color;
+                break;
+            case 4:
+                sr.color = Color.purple;
+                c = sr.color;
+                break;
+        }
+        if (differentiateColor)
+        {
+            sr.color = c * colordifference;
+        }
+   
+            
+
+
+
         //r = Random.Range(0.5f, 1);
         //g = Random.Range(0.5f, 1);
         //b = Random.Range(0.5f, 1);

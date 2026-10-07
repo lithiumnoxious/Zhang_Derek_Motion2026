@@ -107,5 +107,7 @@ MonoBehaviour:
   portalP: {fileID: 0}
   pDistance: 0
   eDistance: 0
-  teleportTrigger: 0.5
+  teleportTrigger: 0.7
   differentiateColor: 0
+  colordifference: 0.7
+  c: {r: 0.5, g: 0.5, b: 0.5, a: 1}
