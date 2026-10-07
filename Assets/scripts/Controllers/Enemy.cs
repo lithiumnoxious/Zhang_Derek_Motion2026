@@ -3,11 +3,19 @@ using UnityEngine.InputSystem;
 
 public class Enemy : MonoBehaviour
 {
+     public static Transform enemyPos;
     public Vector3 currentvelo;
     public int speed;
     public float rotspeed;
+
+    private void Start()
+    {
+        enemyPos = transform;
+
+    }
     void Update()
     {
+        enemyPos = transform;
         EnemyMovement();
 
     }

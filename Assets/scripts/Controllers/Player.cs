@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public List<Transform> asteroidTransforms;
-    public Transform enemyTransform;
+     public static Transform playerPos;
+    //public Transform enemyTransform;
     public GameObject bombPrefab;
     //public Transform bombsTransform;
     public Vector3 inOffset;
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
 
     public int circlesides;
     public float circleradius;
-    public GameObject enemy;
+    //public GameObject enemy;
 
 
     public float powerRadius;
@@ -38,6 +39,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        playerPos = transform;
+
         //transform.position = transform.position + currentvelo;
         //transform.position += Vector3.right;
         //currentaccel = maxspeed / acceltime;
@@ -46,6 +49,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        playerPos = transform;
         //transform.position = transform.position + currentvelo;
 
 
@@ -67,7 +71,7 @@ public class Player : MonoBehaviour
 
         if (Keyboard.current.spaceKey.wasReleasedThisFrame)
         {
-            WarpPlayer(enemyTransform, 0.5f); //w2 task 3
+            WarpPlayer(Enemy.enemyPos, 0.5f); //w2 task 3
         }
 
         angle = transform.eulerAngles.z;
@@ -306,7 +310,7 @@ public class Player : MonoBehaviour
             tempY2 = tempY;
 
 
-            enemydist = Vector2.Distance(transform.position, enemy.transform.position);
+            enemydist = Vector2.Distance(transform.position, Enemy.enemyPos.position);
             if (enemydist-0.5 < radius )
             {
                 Debug.DrawLine(startP, EndP, Color.red);

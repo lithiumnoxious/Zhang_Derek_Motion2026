@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class portal : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject enemy;
+    //public GameObject player;
+    //public GameObject enemy;
     public GameObject portalP;
     public float pDistance;
     public float eDistance;
@@ -22,21 +22,21 @@ public class portal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pDistance = Vector2.Distance(transform.position,player.transform.position);
-        eDistance = Vector2.Distance(transform.position, enemy.transform.position);
+        pDistance = Vector2.Distance(transform.position, Player.playerPos.position);
+        eDistance = Vector2.Distance(transform.position, Enemy.enemyPos.position);
 
 
         if (riftCooldown == false)
         {
             if (pDistance < teleportTrigger)
             {
-                player.transform.position = portalP.transform.position;
+                Player.playerPos.position = portalP.transform.position;
                 riftCooldownDuration = 0;
                 riftCooldown = true;
             }
             if (eDistance < teleportTrigger)
             {
-                enemy.transform.position = portalP.transform.position;
+                Enemy.enemyPos.position = portalP.transform.position;
                 riftCooldownDuration = 0;
                 riftCooldown = true;
             }

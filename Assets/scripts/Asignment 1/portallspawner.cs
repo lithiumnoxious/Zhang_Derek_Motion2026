@@ -5,8 +5,8 @@ public class portallspawner : MonoBehaviour
 {
     public GameObject portal1;
     public GameObject portal2;
-    public GameObject playerPos;
-    public GameObject enemypos;
+    //public GameObject playerPos;
+    //public GameObject enemypos;
     public float PortalSpawnTimer;
     public float PortalTimerDelay;
 
@@ -43,11 +43,11 @@ public class portallspawner : MonoBehaviour
 
             portal script1 = rift1.GetComponent<portal>();
             portal script2 = rift2.GetComponent<portal>();
-            script1.player = playerPos;
-            script1.enemy = enemypos;
+            //script1.player = playerPos;
+            //script1.enemy = enemypos;
 
-            script2.player = playerPos;
-            script2.enemy = enemypos;
+            //script2.player = playerPos;
+            //script2.enemy = enemypos;
 
 
             script1.portalP = rift2;
