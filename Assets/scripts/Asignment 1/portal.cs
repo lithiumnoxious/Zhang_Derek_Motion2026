@@ -12,11 +12,19 @@ public class portal : MonoBehaviour
     public float teleportTrigger = 0.5f;
     static public bool riftCooldown;
     static public float riftCooldownDuration;
+    public bool differentiateColor;
+    SpriteRenderer sr;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        sr = GetComponent<SpriteRenderer>();
+        if (differentiateColor)
+        {
+            sr.color = Color.red;
+        }
+
+
     }
 
     // Update is called once per frame

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class portallspawner : MonoBehaviour
 {
-    public GameObject portal1;
-    public GameObject portal2;
+    public GameObject portal;
+    //public GameObject portal2;
     //public GameObject playerPos;
     //public GameObject enemypos;
     public float PortalSpawnTimer;
@@ -32,8 +32,8 @@ public class portallspawner : MonoBehaviour
         if (PortalSpawnTimer >= 5)
         {
             Vector3 riftpos = new Vector3(Random.Range(0, spawnRange), Random.Range(0, spawnRange),0);
-            GameObject rift1 = Instantiate(portal1,riftpos, Quaternion.identity);
-            GameObject rift2 = Instantiate(portal1, -riftpos, Quaternion.identity);
+            GameObject rift1 = Instantiate(portal,riftpos, Quaternion.identity);
+            GameObject rift2 = Instantiate(portal, -riftpos, Quaternion.identity);
 
             //SpriteRenderer sr1 = rift1.GetComponent<SpriteRenderer>();
             //SpriteRenderer sr2 = rift2.GetComponent<SpriteRenderer>();
@@ -43,6 +43,7 @@ public class portallspawner : MonoBehaviour
 
             portal script1 = rift1.GetComponent<portal>();
             portal script2 = rift2.GetComponent<portal>();
+            script2.differentiateColor = true;
             //script1.player = playerPos;
             //script1.enemy = enemypos;
 
