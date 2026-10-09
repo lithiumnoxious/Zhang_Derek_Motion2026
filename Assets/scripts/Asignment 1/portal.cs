@@ -7,7 +7,6 @@ public class portal : MonoBehaviour
     public GameObject portalP;
     public float pDistance;
     public float eDistance;
-
     public float teleportTrigger = 0.5f;
     static public bool riftCooldown;
     static public float riftCooldownDuration;
@@ -23,7 +22,6 @@ public class portal : MonoBehaviour
         //sr = GetComponent<SpriteRenderer>();
         //int r = Random.Range(0, 2);
         
-
         //switch (r)
         //{
         //    case 0:
@@ -44,10 +42,6 @@ public class portal : MonoBehaviour
         //    sr.color = c * portallspawner.colordifference;
         //}
    
-            
-
-
-
         //r = Random.Range(0.5f, 1);
         //g = Random.Range(0.5f, 1);
         //b = Random.Range(0.5f, 1);
@@ -60,21 +54,13 @@ public class portal : MonoBehaviour
         //    c = new Color(r - 0.2f, g - 0.2f, b - 0.2f);
         //    sr.color = c;
         //}
-
-
-
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
         pDistance = Vector2.Distance(transform.position, Player.playerPos.position);
         eDistance = Vector2.Distance(transform.position, Enemy.enemyPos.position);
-
 
         if (riftCooldown == false)
         {

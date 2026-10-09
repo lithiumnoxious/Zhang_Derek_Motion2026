@@ -1513,8 +1513,7 @@ MonoBehaviour:
   PortalTimerDelay: 5
   difficulty: 1
   spawnRange: 5
-  Color1: {r: 0, g: 0, b: 0, a: 0}
-  Color2: {r: 0, g: 0, b: 0, a: 0}
+  colordifference: 0.7
 --- !u!4 &1075399808
 Transform:
   m_ObjectHideFlags: 0
