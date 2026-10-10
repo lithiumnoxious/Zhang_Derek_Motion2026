@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class Radar : MonoBehaviour
 {
-
+    public float circleradius;
     public int circlesides;
     public int sidesPlus;
     public bool sidesMinus;
-    public float circleradius;
-    public float time = 0;
-    public float CurveTime = 0;
+    public float time;
+    public float CurveTime;
     public AnimationCurve curve;
+
+    public static float radiusZone1;
+    public static float radiusZone2;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,11 +29,14 @@ public class Radar : MonoBehaviour
             time = 0;
         }
         EnemyRadar(circleradius, circlesides + sidesPlus, 1);
+        radiusZone1 = circleradius + curve.Evaluate(CurveTime);
         EnemyRadar(circleradius + circlesides / 2, circlesides + sidesPlus, 0.7f);
-
+        radiusZone2 = (circleradius + circlesides / 2) + curve.Evaluate(CurveTime);
     }
 
     public float enemydist;
+    public float playerdist;
+
     public void EnemyRadar(float radius, int points, float col)
     {
         float Firstdiv = 360f / points;
@@ -47,8 +53,7 @@ public class Radar : MonoBehaviour
             CurveTime = 0;
         }
         radius += curve.Evaluate(CurveTime);
-
-
+        //radiusNum = radius;
 
         for (float i = 0; i < points + 1; i++)
         {
@@ -69,13 +74,28 @@ public class Radar : MonoBehaviour
             tempY2 = tempY;
 
             enemydist = Vector2.Distance(transform.position, Enemy.enemyPos.position);
-            if (enemydist - 0.5 < radius)
+            playerdist = Vector2.Distance(transform.position, Player.playerPos.position);
+
+            if (enemydist - 0.5 < radius|| playerdist - 0.5 < radius)
             {
                 Debug.DrawLine(startP, EndP, Color.red * col);
+                //shotline.inZone1 = true;
+                if(enemydist < radiusZone1 || playerdist < radiusZone1)
+                {
+                    shotline.inZone1 = true;
+                }
+                if (enemydist < radiusZone2 || playerdist < radiusZone2)
+                {
+                    shotline.inZone2 = true;
+                }
+
             }
             else
             {
                 Debug.DrawLine(startP, EndP, Color.darkSeaGreen * col);
+                shotline.inZone1 = false;
+                shotline.inZone2 = false;
+
             }
         }
     }
