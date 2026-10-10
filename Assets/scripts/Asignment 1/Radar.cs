@@ -9,6 +9,7 @@ public class Radar : MonoBehaviour
     public float time;
     public float CurveTime;
     public AnimationCurve curve;
+    public bool curveOn;
 
     public static float radiusZone1;
     public static float radiusZone2;
@@ -28,10 +29,11 @@ public class Radar : MonoBehaviour
             SideChanger();
             time = 0;
         }
+
         EnemyRadar(circleradius, circlesides + sidesPlus, 1);
-        radiusZone1 = circleradius + curve.Evaluate(CurveTime);
         EnemyRadar(circleradius + circlesides / 2, circlesides + sidesPlus, 0.7f);
-        radiusZone2 = (circleradius + circlesides / 2) + curve.Evaluate(CurveTime);
+
+
     }
 
     public float enemydist;
@@ -46,13 +48,23 @@ public class Radar : MonoBehaviour
         float tempY;
         float tempX2 = 0;
         float tempY2 = 0;
-        
+
         CurveTime += Time.deltaTime;
         if (CurveTime > 1)
         {
             CurveTime = 0;
         }
-        radius += curve.Evaluate(CurveTime);
+        if (curveOn)
+        {
+            radius += curve.Evaluate(CurveTime);
+            radiusZone1 = circleradius + curve.Evaluate(CurveTime);
+            radiusZone2 = (circleradius + circlesides / 2) + curve.Evaluate(CurveTime);
+        }
+        else
+        {
+            radiusZone1 = circleradius;
+            radiusZone2 = (circleradius + circlesides / 2);
+        }
         //radiusNum = radius;
 
         for (float i = 0; i < points + 1; i++)
@@ -76,11 +88,11 @@ public class Radar : MonoBehaviour
             enemydist = Vector2.Distance(transform.position, Enemy.enemyPos.position);
             playerdist = Vector2.Distance(transform.position, Player.playerPos.position);
 
-            if (enemydist - 0.5 < radius|| playerdist - 0.5 < radius)
+            if (enemydist - 0.5 < radius || playerdist - 0.5 < radius)
             {
                 Debug.DrawLine(startP, EndP, Color.red * col);
                 //shotline.inZone1 = true;
-                if(enemydist < radiusZone1 || playerdist < radiusZone1)
+                if (enemydist < radiusZone1 || playerdist < radiusZone1)
                 {
                     shotline.inZone1 = true;
                 }
