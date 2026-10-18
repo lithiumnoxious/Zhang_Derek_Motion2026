@@ -344,12 +344,12 @@ public class Player : MonoBehaviour
     }
 
 
-    public float mathCos(float angle)
+    static public float mathCos(float angle)
     {
         float ra = Mathf.Cos(angle * Mathf.Deg2Rad); // only use radian
         return (ra);
     }
-    public float mathSin(float angle)
+    static public float mathSin(float angle)
     {
         float ra = Mathf.Sin(angle * Mathf.Deg2Rad); // only use radian
         return (ra);

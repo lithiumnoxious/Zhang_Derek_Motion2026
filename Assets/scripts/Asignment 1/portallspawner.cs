@@ -7,31 +7,31 @@ public class portallspawner : MonoBehaviour
     public float PortalTimerDelay;
     public int publicDifficulty;
     public static int difficulty;
-    public float spawnRange;
     public float colordifference;
 
     void Start()
     {
         difficulty = publicDifficulty;
-        if(difficulty <= 0)
+        if (difficulty <= 0)
         {
             difficulty = 1;
         }
     }
-
     // Update is called once per frame
     void Update()
     {
         PortalSpawnTimer += 1 * Time.deltaTime * difficulty;
         if (PortalSpawnTimer >= PortalTimerDelay)
         {
-            Vector3 riftpos = new Vector3(Random.Range(0, spawnRange) + spawnRange / 2, Random.Range(0, spawnRange) + spawnRange / 2, 0);
+            Vector3 riftpos = new Vector3(
+                    Random.Range(-Radar.SpawnRange, Radar.SpawnRange),
+                    Random.Range(-Radar.SpawnRange, Radar.SpawnRange), 0);
             GameObject rift1 = Instantiate(portal, riftpos, Quaternion.identity);
             GameObject rift2 = Instantiate(portal, -riftpos, Quaternion.identity);
 
             SpriteRenderer sr1 = rift1.GetComponent<SpriteRenderer>();
             SpriteRenderer sr2 = rift2.GetComponent<SpriteRenderer>();
- 
+
             portal script1 = rift1.GetComponent<portal>();
             portal script2 = rift2.GetComponent<portal>();
 
@@ -51,6 +51,7 @@ public class portallspawner : MonoBehaviour
                     sr2.color = Color.green * colordifference;
                     break;
             }
+
             script1.portalP = rift2;
             script2.portalP = rift1;
 

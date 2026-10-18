@@ -2,21 +2,11 @@ using UnityEngine;
 
 public class Radar : MonoBehaviour
 {
-    public float baseCircleRadius;
-    public float circleRadius1;
-    public float circleRadius2;
-
-
-    public int circlesides;
-    public int sidesPlus;
-    public bool sidesMinus;
-    public float time;
-    public float CurveTime;
-    public AnimationCurve curve;
-    public bool curveOn;
-
-    public static float radiusZone1;
-    public static float radiusZone2;
+    public static float SpawnRange;
+    public static float radiusZone1; public static float radiusZone2;
+    public float circleRadius1; public float circleRadius2;
+    public int circlesides; public int sidesPlus; public bool sidesMinus;
+    public float time; public float CurveTime; public AnimationCurve curve; public bool curveOn;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,25 +23,23 @@ public class Radar : MonoBehaviour
             SideChanger();
             time = 0;
         }
+        if (SpawnRange != (radiusZone1 + radiusZone2) / 2)
+        {
+            SpawnRange = (radiusZone1 + radiusZone2) / 2;
+        }
 
-        rRadar(baseCircleRadius + circleRadius1, circlesides + sidesPlus, 1);
-        rRadar(baseCircleRadius + circleRadius2, circlesides + sidesPlus, 0.7f);
-
-
+        rRadar(circleRadius1, circlesides + sidesPlus, 1);
+        rRadar(circleRadius1 + circleRadius2, circlesides + sidesPlus, 0.7f);
     }
 
     public float enemydist;
     public float playerdist;
-
     public void rRadar(float radius, int points, float col)
     {
         float Firstdiv = 360f / points;
         float Si;
-        //float oldSi;
-        float tempX;
-        float tempY;
-        float tempX2 = 0;
-        float tempY2 = 0;
+        float tempX; float tempX2 = 0;
+        float tempY; float tempY2 = 0;
 
         CurveTime += Time.deltaTime;
         if (CurveTime > 1)
@@ -60,22 +48,21 @@ public class Radar : MonoBehaviour
         }
         if (curveOn)
         {
-            radius += curve.Evaluate(CurveTime);
-            radiusZone1 = baseCircleRadius + circleRadius1 + curve.Evaluate(CurveTime);
-            radiusZone2 = (baseCircleRadius + circleRadius2) + curve.Evaluate(CurveTime);
+            radius *= curve.Evaluate(CurveTime);
+            radiusZone1 = (circleRadius1) * curve.Evaluate(CurveTime);
+            radiusZone2 = (circleRadius1 + circleRadius2) * curve.Evaluate(CurveTime);
         }
         else
         {
-            radiusZone1 = baseCircleRadius + circleRadius1;
-            radiusZone2 = baseCircleRadius + circleRadius2;
+            radiusZone1 = circleRadius1;
+            radiusZone2 = circleRadius1 + circleRadius2;
         }
-        //radiusNum = radius;
 
         for (float i = 0; i < points + 1; i++)
         {
             Si = Firstdiv * (i);
-            tempX = mathCos(Si);
-            tempY = mathSin(Si);
+            tempX = Player.mathCos(Si);
+            tempY = Player.mathSin(Si);
 
             if (i == 0)
             {
@@ -131,18 +118,5 @@ public class Radar : MonoBehaviour
                 sidesMinus = false;
             }
         }
-    }
-
-
-
-    public float mathCos(float angle)
-    {
-        float ra = Mathf.Cos(angle * Mathf.Deg2Rad); // only use radian
-        return (ra);
-    }
-    public float mathSin(float angle)
-    {
-        float ra = Mathf.Sin(angle * Mathf.Deg2Rad); // only use radian
-        return (ra);
     }
 }

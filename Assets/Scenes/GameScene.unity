@@ -1325,11 +1325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.06
+      value: -15.67
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.46
+      value: 7.95
       objectReference: {fileID: 0}
     - target: {fileID: 4504276444959460, guid: e3900e4d87ee29c43ad1d9098b51432c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1428,8 +1428,7 @@ MonoBehaviour:
   portal: {fileID: 246761788340066450, guid: 27a72a54faab5a947a828db992dc4a66, type: 3}
   PortalSpawnTimer: 0
   PortalTimerDelay: 5
-  difficulty: 0
-  spawnRange: 5
+  publicDifficulty: 1
   colordifference: 0.7
 --- !u!4 &1075399808
 Transform:
@@ -2805,6 +2804,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: curveOn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: circleRadius1
+      value: 6.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: circleRadius2
+      value: 4.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: baseCircleRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].time
+      value: 0.50132394
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].value
+      value: 0.7079268
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].inSlope
+      value: -0.8234467
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].inWeight
+      value: 0.09607998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].outSlope
+      value: -0.8234467
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: curve.m_Curve.Array.data[1].outWeight
+      value: 0.10716911
+      objectReference: {fileID: 0}
     - target: {fileID: 5571737646635166415, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
       propertyPath: inView
       value: 0.1
@@ -3678,7 +3717,7 @@ PrefabInstance:
       objectReference: {fileID: 1693222674}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: speed
-      value: 10.04
+      value: 20.51
       objectReference: {fileID: 0}
     - target: {fileID: 6890330259706833056, guid: abc125f00ae369940b2c5c0275186637, type: 3}
       propertyPath: pPower
