@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class Radar : MonoBehaviour
 {
-    public float circleradius;
+    public float baseCircleRadius;
+    public float circleRadius1;
+    public float circleRadius2;
+
+
     public int circlesides;
     public int sidesPlus;
     public bool sidesMinus;
@@ -30,8 +34,8 @@ public class Radar : MonoBehaviour
             time = 0;
         }
 
-        EnemyRadar(circleradius, circlesides + sidesPlus, 1);
-        EnemyRadar(circleradius + circlesides / 2, circlesides + sidesPlus, 0.7f);
+        rRadar(baseCircleRadius + circleRadius1, circlesides + sidesPlus, 1);
+        rRadar(baseCircleRadius + circleRadius2, circlesides + sidesPlus, 0.7f);
 
 
     }
@@ -39,7 +43,7 @@ public class Radar : MonoBehaviour
     public float enemydist;
     public float playerdist;
 
-    public void EnemyRadar(float radius, int points, float col)
+    public void rRadar(float radius, int points, float col)
     {
         float Firstdiv = 360f / points;
         float Si;
@@ -57,13 +61,13 @@ public class Radar : MonoBehaviour
         if (curveOn)
         {
             radius += curve.Evaluate(CurveTime);
-            radiusZone1 = circleradius + curve.Evaluate(CurveTime);
-            radiusZone2 = (circleradius + circlesides / 2) + curve.Evaluate(CurveTime);
+            radiusZone1 = baseCircleRadius + circleRadius1 + curve.Evaluate(CurveTime);
+            radiusZone2 = (baseCircleRadius + circleRadius2) + curve.Evaluate(CurveTime);
         }
         else
         {
-            radiusZone1 = circleradius;
-            radiusZone2 = (circleradius + circlesides / 2);
+            radiusZone1 = baseCircleRadius + circleRadius1;
+            radiusZone2 = baseCircleRadius + circleRadius2;
         }
         //radiusNum = radius;
 
@@ -100,14 +104,12 @@ public class Radar : MonoBehaviour
                 {
                     shotline.inZone2 = true;
                 }
-
             }
             else
             {
                 Debug.DrawLine(startP, EndP, Color.darkSeaGreen * col);
                 shotline.inZone1 = false;
                 shotline.inZone2 = false;
-
             }
         }
     }

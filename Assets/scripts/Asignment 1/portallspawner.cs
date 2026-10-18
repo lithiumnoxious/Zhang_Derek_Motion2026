@@ -5,13 +5,14 @@ public class portallspawner : MonoBehaviour
     public GameObject portal;
     public float PortalSpawnTimer;
     public float PortalTimerDelay;
-    public int difficulty;
+    public int publicDifficulty;
+    public static int difficulty;
     public float spawnRange;
-
     public float colordifference;
 
     void Start()
     {
+        difficulty = publicDifficulty;
         if(difficulty <= 0)
         {
             difficulty = 1;

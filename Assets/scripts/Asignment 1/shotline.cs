@@ -30,10 +30,7 @@ public class shotline : MonoBehaviour
         checkInZone();
 
         Vector3 directiontotarget = Player.playerPos.position - transform.position;
-        //Debug.DrawLine(transform.position, directiontotarget - transform.position, Color.pink);
-        //(rotDifference < inView && rotDifference > -inView)
-        rotDifference = VectorDot(directiontotarget.normalized, -transform.right);
-        //if (rotDifference > Mathf.Cos(inView * Mathf.Deg2Rad))
+        rotDifference = Vector3.Dot(directiontotarget.normalized, -transform.right);
         if ((rotDifference < inView && rotDifference > -inView)&& (inZone1||inZone2))
         {
             Debug.DrawLine(transform.position, transform.up * (Radar.radiusZone2), Color.darkRed);
@@ -56,8 +53,6 @@ public class shotline : MonoBehaviour
                 leftRight = false;
             }
         }
-        //if ((!inZone1 || !inZone2) & !isInView)
-        //{
             if (leftRight)
             {
                 turn(1);
@@ -66,41 +61,34 @@ public class shotline : MonoBehaviour
             {
                 turn(-1);
             }
-        //}
-    }
-    public static float VectorDot(Vector3 v1, Vector3 v2)
-    {
-        //float dotProduct = v1.x * v2.x + v1.y * v2.y;
-        //return dotProduct;
-        return Vector3.Dot(v1.normalized, v2.normalized);
     }
     public void checkInZone()
     {
         if (!inZ1Boost && inZone1)
         {
-            rotationSpeed += rotationSpeedMultiplier;
+            rotationSpeed += rotationSpeedMultiplier * portallspawner.difficulty;
             inZ1Boost = true;
         }
         if (!inZ2Boost && inZone2)
         {
-            rotationSpeed += rotationSpeedMultiplier;
+            rotationSpeed += rotationSpeedMultiplier * portallspawner.difficulty;
             inZ2Boost = true;
         }
         if (inZ1Boost && !inZone1)
         {
-            rotationSpeed -= rotationSpeedMultiplier;
+            rotationSpeed -= rotationSpeedMultiplier * portallspawner.difficulty;
             inZ1Boost = false;
         }
         if (inZ2Boost && !inZone2)
         {
-            rotationSpeed -= rotationSpeedMultiplier;
+            rotationSpeed -= rotationSpeedMultiplier * portallspawner.difficulty;
             inZ2Boost = false;
         }
     }
 
     public void turn(int direction)
     {
-        transform.eulerAngles += Vector3.forward * Time.deltaTime * baseSpeed * rotationSpeed * direction;
+        transform.eulerAngles += Vector3.forward * Time.deltaTime * baseSpeed * rotationSpeed * direction * portallspawner.difficulty;
     }
 
 
