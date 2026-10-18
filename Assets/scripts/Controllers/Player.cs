@@ -253,18 +253,19 @@ public class Player : MonoBehaviour
         }
         if (booster) //w3 task 1c
         {
-            if (timer >= 1)
+            if (timer >= 5)
             {
                 booster = false;
             }
             else
             {
                 timer += shipdeccel * Time.deltaTime;
+                currentvelo -= currentvelo * Time.deltaTime;
             }
         }
         if (!booster)
         {
-            currentvelo -= currentvelo.normalized * Time.deltaTime;
+            currentvelo = Vector3.zero;
         }
 
 

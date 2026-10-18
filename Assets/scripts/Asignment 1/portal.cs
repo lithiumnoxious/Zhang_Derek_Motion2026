@@ -38,7 +38,5 @@ public class portal : MonoBehaviour
                 riftCooldown = false;
             }
         }
-
-
     }
 }

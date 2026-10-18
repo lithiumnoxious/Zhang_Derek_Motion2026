@@ -3,13 +3,15 @@ using UnityEngine;
 public class shotline : MonoBehaviour
 {
     //public Transform targettransform;
-    public bool left;
+    public bool leftRight;
     public static float rotationSpeed;
     public float rotationSpeedMultiplier;
-    public static bool inZone1;
-    public bool inZ1Boost;
-    public static bool inZone2;
-    public bool inZ2Boost;
+    public int baseSpeed;
+
+    public static bool inZone1; bool inZ1Boost;
+
+    public static bool inZone2; bool inZ2Boost;
+
 
     public float inView;
     public bool isInView;
@@ -22,15 +24,17 @@ public class shotline : MonoBehaviour
     }
 
     // Update is called once per frame
+    public float rotDifference;
     void Update()
     {
         checkInZone();
 
-        Vector3 directiontotarget = Player.playerPos.position - transform.position;// 
+        Vector3 directiontotarget = Player.playerPos.position - transform.position;
         //Debug.DrawLine(transform.position, directiontotarget - transform.position, Color.pink);
-
-        float rotDifference = VectorDot(directiontotarget, -transform.right);
-        if (rotDifference < inView && rotDifference > -inView)
+        //(rotDifference < inView && rotDifference > -inView)
+        rotDifference = VectorDot(directiontotarget.normalized, -transform.right);
+        //if (rotDifference > Mathf.Cos(inView * Mathf.Deg2Rad))
+        if ((rotDifference < inView && rotDifference > -inView)&& (inZone1||inZone2))
         {
             Debug.DrawLine(transform.position, transform.up * (Radar.radiusZone2), Color.darkRed);
             isInView = true;
@@ -45,27 +49,30 @@ public class shotline : MonoBehaviour
         {
             if (rotDifference > 0)
             {
-                left = true;
+                leftRight = true;
             }
             else
             {
-                left = false;
+                leftRight = false;
             }
         }
-
-        if (left)
-        {
-            turn(1);
-        }
-        else
-        {
-            turn(-1);
-        }
+        //if ((!inZone1 || !inZone2) & !isInView)
+        //{
+            if (leftRight)
+            {
+                turn(1);
+            }
+            else
+            {
+                turn(-1);
+            }
+        //}
     }
     public static float VectorDot(Vector3 v1, Vector3 v2)
     {
-        float dotProduct = v1.x * v2.x + v1.y * v2.y;
-        return dotProduct;
+        //float dotProduct = v1.x * v2.x + v1.y * v2.y;
+        //return dotProduct;
+        return Vector3.Dot(v1.normalized, v2.normalized);
     }
     public void checkInZone()
     {
@@ -93,9 +100,9 @@ public class shotline : MonoBehaviour
 
     public void turn(int direction)
     {
-        transform.eulerAngles += Vector3.forward * Time.deltaTime * 30 * rotationSpeed * direction;
+        transform.eulerAngles += Vector3.forward * Time.deltaTime * baseSpeed * rotationSpeed * direction;
     }
 
-    
+
 
 }
