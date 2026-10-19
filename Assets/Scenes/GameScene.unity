@@ -2764,6 +2764,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WatchTower1
       objectReference: {fileID: 0}
+    - target: {fileID: 1179412724812093829, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3687034475369916427, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.038707055
@@ -2809,6 +2813,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601190947546021851, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
       propertyPath: circleRadius1
       value: 6.53
       objectReference: {fileID: 0}
@@ -2850,7 +2858,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5571737646635166415, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
       propertyPath: baseSpeed
-      value: 30
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571737646635166415, guid: 800e6f0b6c6f2054fac201a1310b8907, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

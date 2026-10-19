@@ -23,7 +23,7 @@ public class shotline : MonoBehaviour
 
         Vector3 directiontotarget = Player.playerPos.position - transform.position;
         rotDifference = Vector3.Dot(directiontotarget.normalized, -transform.right);
-        if ((rotDifference < 0.1 && rotDifference > -0.1) && (inZone1 || inZone2))
+        if ((rotDifference < 0.05 && rotDifference > -0.05) && (inZone1 || inZone2))
         {
             Debug.DrawLine(transform.position, transform.up * (Radar.radiusZone2), Color.darkRed);
             isInView = true;
@@ -45,14 +45,16 @@ public class shotline : MonoBehaviour
                 leftRight = false;
             }
         }
-
-        if (leftRight)
+        if (!isInView)
         {
-            turn(1);
-        }
-        else
-        {
-            turn(-1);
+            if (leftRight)
+            {
+                turn(1);
+            }
+            else
+            {
+                turn(-1);
+            }
         }
     }
     public void turn(int direction)
