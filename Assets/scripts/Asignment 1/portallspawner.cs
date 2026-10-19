@@ -11,7 +11,6 @@ public class portallspawner : MonoBehaviour
 
     void Start()
     {
-        difficulty = publicDifficulty;
         if (difficulty <= 0)
         {
             difficulty = 1;
@@ -20,6 +19,10 @@ public class portallspawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (difficulty != publicDifficulty)
+        {
+            difficulty = publicDifficulty;
+        }
         PortalSpawnTimer += 1 * Time.deltaTime * difficulty;
         if (PortalSpawnTimer >= PortalTimerDelay)
         {
