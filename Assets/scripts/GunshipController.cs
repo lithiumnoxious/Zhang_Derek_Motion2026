@@ -25,16 +25,25 @@ public class GunshipController : MonoBehaviour
             GameObject cannonBall = Instantiate(cannonballPrefab, rightCannon.position,quaternion.identity);
              
             Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
-            Vector3 forceDirection = rightDirection - transform.position;
-            rb.AddForce(forceDirection.normalized * cannonballForce );
+            //Vector3 forceDirection = rightDirection - transform.position;
+            //rb.AddForce(forceDirection.normalized * cannonballForce );
+            rb.AddForce(rightDirection.normalized * cannonballForce, ForceMode2D.Impulse);
+
         }
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             GameObject cannonBall = Instantiate(cannonballPrefab, leftCannon.position, quaternion.identity);
             Rigidbody2D rb = cannonBall.GetComponent<Rigidbody2D>();
-            Vector3 forceDirection = leftDirection - transform.position;
-            rb.AddForce(forceDirection.normalized * cannonballForce);
+            //Vector3 forceDirection = leftDirection - transform.position;
+            //rb.AddForce(forceDirection.normalized * cannonballForce,ForceMode2D.Impulse);
+
+            rb.AddForce(leftDirection.normalized * cannonballForce, ForceMode2D.Impulse);
+
         }
+    }
+    void FixedUpdate()
+    {
+        
     }
 
     //Given a target position and the transform of a cannon, aims that cannon at that target
@@ -53,4 +62,7 @@ public class GunshipController : MonoBehaviour
         //We also then finally return the direction that we want to aim based on the target
         return direction;
     }
+
+
+
 }

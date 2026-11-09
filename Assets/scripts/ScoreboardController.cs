@@ -5,8 +5,12 @@ public class ScoreboardController : MonoBehaviour
 {
     public Text scoreText;
 
-    private int score;
+    public static int score;
 
+    void Update()
+    {
+        //scoreText.text = (score);
+    }
     //This is a C# property.
     //Score is a variable.
     public int Score
