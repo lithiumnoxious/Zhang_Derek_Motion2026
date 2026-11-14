@@ -6,6 +6,11 @@ public class forcesTest : MonoBehaviour
     public float forceStrength;
     public Rigidbody2D rbDD;
     public BoxCollider2D boxCollider;
+    public bool posXLock = false; public bool posZLock = false; public bool posAllLock = false;
+    //public enum RigidbodyConstraints2D
+    //{
+    //    FreezePositionX, FreezePosY, FreezePosR
+    //}
 
     public enum projectType
     {
@@ -22,19 +27,57 @@ public class forcesTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             Vector3 MousePos = Mouse.current.position.ReadValue();
             Vector3 WorldMP = Camera.main.ScreenToWorldPoint(MousePos);
             WorldMP.z = 0;
 
             Vector3 forceDirection = WorldMP - transform.position;
-
-
-
             rbDD.AddForce(forceDirection.normalized * forceStrength, ForceMode2D.Force);
         }
         //OnCollisionEnter2D(boxCollider);
+
+        if (Keyboard.current.xKey.wasReleasedThisFrame)
+        {
+            if (posXLock)
+            {
+                rbDD.constraints = RigidbodyConstraints2D.None;
+            }
+            if (!posXLock)
+            {
+                rbDD.constraints = RigidbodyConstraints2D.FreezePositionX;
+            }
+            posXLock = !posXLock;
+            
+        }
+        if (Keyboard.current.zKey.wasReleasedThisFrame)
+        {
+            if (posZLock)
+            {
+                rbDD.constraints = RigidbodyConstraints2D.None;
+            }
+            if (!posZLock)
+            {
+                rbDD.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
+            posZLock = !posZLock;
+        }
+        if (Keyboard.current.aKey.wasReleasedThisFrame)
+        {
+            if (posAllLock)
+            {
+                rbDD.constraints = RigidbodyConstraints2D.None;
+            }
+            if (!posAllLock)
+            {
+                rbDD.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+            posAllLock = !posAllLock;
+
+
+        }
+
 
     }
 

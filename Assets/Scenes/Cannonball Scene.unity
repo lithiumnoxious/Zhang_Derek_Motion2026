@@ -418,9 +418,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac929185db9a944597781f4e0cfc06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::forcesTest
-  forceStrength: 5
+  forceStrength: 50
   rbDD: {fileID: 0}
   boxCollider: {fileID: 0}
+  posXLock: 0
+  posZLock: 0
+  posAllLock: 0
 --- !u!212 &567581904
 SpriteRenderer:
   serializedVersion: 2
@@ -734,9 +737,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ac929185db9a944597781f4e0cfc06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::forcesTest
-  forceStrength: 5
+  forceStrength: 50
   rbDD: {fileID: 0}
   boxCollider: {fileID: 0}
+  posXLock: 0
+  posZLock: 0
+  posAllLock: 0
 --- !u!61 &1299629335
 BoxCollider2D:
   m_ObjectHideFlags: 0
