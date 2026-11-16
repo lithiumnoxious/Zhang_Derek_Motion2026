@@ -27,17 +27,22 @@ public class forcesTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 MousePos = Mouse.current.position.ReadValue();
+        Vector3 WorldMP = Camera.main.ScreenToWorldPoint(MousePos);
+        WorldMP.z = 0;
+        Vector3 forceDirection = WorldMP - transform.position;
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            Vector3 MousePos = Mouse.current.position.ReadValue();
-            Vector3 WorldMP = Camera.main.ScreenToWorldPoint(MousePos);
-            WorldMP.z = 0;
-
-            Vector3 forceDirection = WorldMP - transform.position;
             rbDD.AddForce(forceDirection.normalized * forceStrength, ForceMode2D.Force);
         }
+        if (Keyboard.current.eKey.wasPressedThisFrame) //Week 9 part 3
+        {
+            rbDD.AddForceAtPosition(forceDirection.normalized * forceStrength, forceDirection.normalized * forceStrength, ForceMode2D.Force);
+        }
+
         //OnCollisionEnter2D(boxCollider);
 
+        //Week 9 part 1
         if (Keyboard.current.xKey.wasReleasedThisFrame) //easy to turn on and off
         {
             if (posXLock) //resets the contraints
@@ -51,6 +56,7 @@ public class forcesTest : MonoBehaviour
             posXLock = !posXLock;
 
         }
+        //Week 9 part 1
         if (Keyboard.current.zKey.wasReleasedThisFrame)
         {
             if (posZLock)
@@ -63,7 +69,8 @@ public class forcesTest : MonoBehaviour
             }
             posZLock = !posZLock;
         }
-        if (Keyboard.current.aKey.wasReleasedThisFrame) 
+        //Week 9 part 1
+        if (Keyboard.current.aKey.wasReleasedThisFrame)
         {
             if (posAllLock)
             {
@@ -77,46 +84,51 @@ public class forcesTest : MonoBehaviour
 
 
         }
+        //Week 9 part 2
         if (Keyboard.current.digit1Key.wasReleasedThisFrame)
         {
             rbDD.bodyType = RigidbodyType2D.Dynamic;   // Affected by gravity and forces
         }
+        //Week 9 part 2
         if (Keyboard.current.digit2Key.wasReleasedThisFrame)
         {
             rbDD.bodyType = RigidbodyType2D.Kinematic; // Moves only in script, also ignores forces/gravity
         }
+        //Week 9 part 2
         if (Keyboard.current.digit3Key.wasReleasedThisFrame)
         {
             rbDD.bodyType = RigidbodyType2D.Static;    // Completely immovable; 
         }
+
+
     }
 
-        void OnCollisionEnter2D(Collision2D collision)
-        {
-            Debug.Log("Collision enter");
-        }
-        void OnCollisionExit2D(Collision2D collision)
-        {
-            Debug.Log("Collision exit");
-        }
-        void OnCollisionStay2D(Collision2D collision)
-        {
-            Debug.Log("Collision stay");
-        }
-
-        void OnTriggerEnter2D(Collider2D collision)
-        {
-            Debug.Log("Trigger enter");
-
-        }
-        void OnTriggerExit2D(Collider2D collision)
-        {
-            Debug.Log("Trigger exit");
-
-        }
-        void OnTriggerStay2D(Collider2D collision)
-        {
-            Debug.Log("Trigger stay");
-
-        }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Collision enter");
     }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("Collision exit");
+    }
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log("Collision stay");
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Trigger enter");
+
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Trigger exit");
+
+    }
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("Trigger stay");
+
+    }
+}
