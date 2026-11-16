@@ -37,7 +37,7 @@ public class forcesTest : MonoBehaviour
         }
         if (Keyboard.current.eKey.wasPressedThisFrame) //Week 9 part 3
         {
-            rbDD.AddForceAtPosition(forceDirection.normalized * forceStrength, forceDirection.normalized * forceStrength, ForceMode2D.Force);
+            rbDD.AddForceAtPosition(forceDirection.normalized * forceStrength, transform.position, ForceMode2D.Force);
         }
 
         //OnCollisionEnter2D(boxCollider);
