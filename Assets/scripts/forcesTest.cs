@@ -39,7 +39,11 @@ public class forcesTest : MonoBehaviour
         {
             rbDD.AddForceAtPosition(forceDirection.normalized * forceStrength, transform.position, ForceMode2D.Force);
         }
-
+        if (Keyboard.current.tKey.wasPressedThisFrame) //Week 9 part 4
+        {
+            rbDD.AddRelativeForce(transform.forward * forceStrength);
+        }
+        
         //OnCollisionEnter2D(boxCollider);
 
         //Week 9 part 1
