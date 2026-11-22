@@ -316,9 +316,9 @@ GameObject:
   - component: {fileID: 1054579210}
   - component: {fileID: 1054579209}
   - component: {fileID: 1054579211}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundTilemap
-  m_TagString: Untagged
+  m_TagString: gound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1713,6 +1713,7 @@ MonoBehaviour:
   accelTime: 10
   accel: 0
   playerInput: {x: 0, y: 0}
+  playerinputDirection: 0
   newvelocity: {x: 0, y: 0}
   isGrounded: 0
   isWalking: 0

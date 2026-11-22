@@ -15,8 +15,6 @@ public class PlayerController : MonoBehaviour
     {
         left, right
     }
-    public bool isGrounded;
-    public bool isWalking;
 
 
     // Start is called before the first frame update
@@ -92,26 +90,27 @@ public class PlayerController : MonoBehaviour
 
     public bool IsWalking()
     {
-        //bool isWalking = false;
         if (rb.linearVelocity.x != 0)
         {
-            return isWalking = true;
+            return true;
         }
-        return isWalking = false;
+        return false;
     }
     public bool IsGrounded()
     {
-        //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
-        //bool isGround = true;
-        //if (hit)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.9f);
+        //if (hit.collider != null) //here to tell me if the ground was hit or not
         //{
-        //    isGround = true;
+        //    Debug.Log("Hit");
         //}
-        //else
-        //{
-        //    isGround = false;
-        //}
-        return true; // hit;
+        if (hit.collider != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public FacingDirection GetFacingDirection()
