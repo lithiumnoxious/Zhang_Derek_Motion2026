@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float accelTime;
     public float accel;
     public Vector2 playerInput;
+    public float playerinputDirection;
     public Vector2 newvelocity;
 
     public enum FacingDirection
@@ -35,12 +36,14 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current.leftArrowKey.isPressed)
         {
             playerInput.x += 1f;
+            playerinputDirection = playerInput.x; //playerinputDirection is placed here so it does not get overwritten
         }
         else if (Keyboard.current.rightArrowKey.isPressed)
         {
             playerInput.x -= 1f;
+            playerinputDirection = playerInput.x;
         }
-
+        
 
         if (playerInput.x == 0)
         {
@@ -49,7 +52,11 @@ public class PlayerController : MonoBehaviour
                 //newvelocity = new Vector2(newvelocity.x * 0.9f, 0);
                 //that feels nice but now let's try and use the already established variables
 
-                newvelocity = new Vector2(newvelocity.x * (1 - accelTime / maxspeed), 0);
+                //newvelocity = new Vector2(newvelocity.x * (1 - accelTime / maxspeed), 0);
+
+                newvelocity.x *= 1 - accelTime / maxspeed; //cleaner version,
+                                                           //acceltime / maxspeed would equal 0.1, minus 1 equal 0.9, which is a good value for deceleration.
+                                                           //I do feel like this could be skipped and just keep 0.9f, as deceleration should not be changed all to often.
 
             }
             rb.linearVelocity = newvelocity;
@@ -64,15 +71,13 @@ public class PlayerController : MonoBehaviour
 
         MovementUpdate(playerInput);
         GetFacingDirection();
-
-
         IsGrounded();
 
     }
 
     void MovementUpdate(Vector2 playerInput)
     {
-        
+
         if (playerInput.x != 0f)
         {
             newvelocity += playerInput.x * Vector2.left * accel * Time.deltaTime;
@@ -111,14 +116,17 @@ public class PlayerController : MonoBehaviour
 
     public FacingDirection GetFacingDirection()
     {
-        if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+        //playerinputDirection is used to remember what was the last direction playerinput was going
+        if (playerinputDirection > 0)
         {
-  
+            return FacingDirection.left;
         }
-        if (Keyboard.current.rightArrowKey.isPressed)
-        {
+        else 
+        { 
+            return FacingDirection.right;
+        }
 
-        }
-        return FacingDirection.left;
+
+
     }
 }
