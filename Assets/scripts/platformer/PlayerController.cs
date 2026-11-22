@@ -7,12 +7,16 @@ public class PlayerController : MonoBehaviour
     public int maxspeed;
     public float accelTime;
     public float accel;
-
+    public Vector2 playerInput;
+    public Vector2 newvelocity;
 
     public enum FacingDirection
     {
         left, right
     }
+    public bool isGrounded;
+    public bool isWalking;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +28,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        newvelocity = rb.linearVelocity;
         //The input from the player needs to be determined and then passed in the to the MovementUpdate which should
         //manage the actual movement of the character.
-        Vector2 playerInput = new Vector2();
+        playerInput = new Vector2();
         if (Keyboard.current.leftArrowKey.isPressed)
         {
             playerInput.x += 1f;
@@ -36,7 +40,29 @@ public class PlayerController : MonoBehaviour
         {
             playerInput.x -= 1f;
         }
+        else
+        {
+            if (newvelocity.x != 0f)
+            {
+                //newvelocity *= 0.8f; //that feels nice but now let's try and use the already established variables
+                newvelocity.x -= (maxspeed / accelTime) * Time.deltaTime;
 
+                //newvelocity += playerInput * accel * Time.deltaTime;
+            }
+            rb.linearVelocity = newvelocity;
+        }
+        //if (newvelocity > maxspeed) 
+        //{
+        //    newvelocity = maxspeed;
+        //}
+
+
+        if (rb.linearVelocity.x > -0.1f && rb.linearVelocity.x < 0.1f)
+        {
+            rb.linearVelocity = Vector2.zero;
+            newvelocity = rb.linearVelocity;
+
+        }
         //if (Keyboard.current.upArrowKey.isPressed)
         //{
         //    playerInput = new Vector2(0, 1);
@@ -53,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
     void MovementUpdate(Vector2 playerInput)
     {
-        Vector2 newvelocity = rb.linearVelocity;
+        
         if (playerInput.x != 0f)
         {
             newvelocity += playerInput.x * Vector2.left * accel * Time.deltaTime;
@@ -68,14 +94,12 @@ public class PlayerController : MonoBehaviour
 
     public bool IsWalking()
     {
-        bool isWalking = false;
-        if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+        //bool isWalking = false;
+        if (rb.linearVelocity.x != 0)
         {
-            isWalking = true;
+            return isWalking = true;
         }
-
-
-        return isWalking;
+        return isWalking = false;
     }
     public bool IsGrounded()
     {
@@ -94,7 +118,14 @@ public class PlayerController : MonoBehaviour
 
     public FacingDirection GetFacingDirection()
     {
+        if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+        {
+  
+        }
+        if (Keyboard.current.rightArrowKey.isPressed)
+        {
 
+        }
         return FacingDirection.left;
     }
 }

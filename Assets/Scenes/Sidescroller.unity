@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 874392359}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: gound
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1709,8 +1709,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  maxspeed: 3.68
-  accelTime: 10.43
+  maxspeed: 90
+  accelTime: 10
+  accel: 0
+  playerInput: {x: 0, y: 0}
+  newvelocity: {x: 0, y: 0}
+  isGrounded: 0
+  isWalking: 0
 --- !u!4 &1433354315
 Transform:
   m_ObjectHideFlags: 0

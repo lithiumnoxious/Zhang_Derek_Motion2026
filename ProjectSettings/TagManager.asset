@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ship
   - CBall
+  - gound
   layers:
   - Default
   - TransparentFX
