@@ -40,34 +40,27 @@ public class PlayerController : MonoBehaviour
         {
             playerInput.x -= 1f;
         }
-        else
+
+
+        if (playerInput.x == 0)
         {
             if (newvelocity.x != 0f)
             {
-                //newvelocity *= 0.8f; //that feels nice but now let's try and use the already established variables
-                newvelocity.x -= (maxspeed / accelTime) * Time.deltaTime;
+                //newvelocity = new Vector2(newvelocity.x * 0.9f, 0);
+                //that feels nice but now let's try and use the already established variables
 
-                //newvelocity += playerInput * accel * Time.deltaTime;
+                newvelocity = new Vector2(newvelocity.x * (1 - accelTime / maxspeed), 0);
+
             }
             rb.linearVelocity = newvelocity;
+
         }
-        //if (newvelocity > maxspeed) 
-        //{
-        //    newvelocity = maxspeed;
-        //}
-
-
-        if (rb.linearVelocity.x > -0.1f && rb.linearVelocity.x < 0.1f)
+        if (rb.linearVelocity.x > -0.05f && rb.linearVelocity.x < 0.05f)
         {
             rb.linearVelocity = Vector2.zero;
             newvelocity = rb.linearVelocity;
 
         }
-        //if (Keyboard.current.upArrowKey.isPressed)
-        //{
-        //    playerInput = new Vector2(0, 1);
-        //}
-
 
         MovementUpdate(playerInput);
         GetFacingDirection();

@@ -1709,7 +1709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  maxspeed: 90
+  maxspeed: 100
   accelTime: 10
   accel: 0
   playerInput: {x: 0, y: 0}
