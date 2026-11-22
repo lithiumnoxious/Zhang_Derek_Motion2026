@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public float maxspeed;
+    public int maxspeed;
     public float accelTime;
-    private float accel;
+    public float accel;
 
 
     public enum FacingDirection
@@ -32,11 +32,11 @@ public class PlayerController : MonoBehaviour
         {
             playerInput.x += 1f;
         }
-        if (Keyboard.current.rightArrowKey.isPressed)
+        else if (Keyboard.current.rightArrowKey.isPressed)
         {
             playerInput.x -= 1f;
-            
         }
+
         //if (Keyboard.current.upArrowKey.isPressed)
         //{
         //    playerInput = new Vector2(0, 1);
@@ -45,40 +45,56 @@ public class PlayerController : MonoBehaviour
 
         MovementUpdate(playerInput);
         GetFacingDirection();
+
+
+        IsGrounded();
+
     }
 
     void MovementUpdate(Vector2 playerInput)
     {
         Vector2 newvelocity = rb.linearVelocity;
-
-        if (playerInput.x != 0f) 
+        if (playerInput.x != 0f)
         {
             newvelocity += playerInput.x * Vector2.left * accel * Time.deltaTime;
             //newvelocity += playerInput * accel * Time.deltaTime;
-
         }
-        else
-        {
-            
-        }
-
-        //rb.linearVelocity = Vector2.left * playerInput * maxspeed;
         rb.linearVelocity = newvelocity;
 
+
     }
+
+    //public static int BoxCast(Vector2 origin, Vector2 size, float angle, Vector2 direction, ContactFilter2D contactFilter, RaycastHit2D[] results, float distance)
 
     public bool IsWalking()
     {
-        return false;
+        bool isWalking = false;
+        if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+        {
+            isWalking = true;
+        }
+
+
+        return isWalking;
     }
     public bool IsGrounded()
     {
-        return true;
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
+        //bool isGround = true;
+        //if (hit)
+        //{
+        //    isGround = true;
+        //}
+        //else
+        //{
+        //    isGround = false;
+        //}
+        return true; // hit;
     }
 
     public FacingDirection GetFacingDirection()
     {
-       
-            return FacingDirection.left;
+
+        return FacingDirection.left;
     }
 }
