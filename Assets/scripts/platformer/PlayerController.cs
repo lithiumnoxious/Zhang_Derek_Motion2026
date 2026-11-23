@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviour
     public float playerinputDirection;
 
     public bool hasjumped;
-    public float gravity;
-    public float initialJumpVelocity;
-    public int apexTime;
+     float gravity;
+     float initialJumpVelocity;
+    public float apexTime;
     public float apexheight;
 
     public enum FacingDirection
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         accel = maxspeed / accelTime;
    
 
-        gravity = -2 * apexheight / (apexTime * apexTime);
+        gravity = -3f * apexheight / (apexTime * apexTime);
         initialJumpVelocity = 2 * apexheight / apexTime;
     }
 
@@ -64,34 +64,28 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 newvelocity = rb.linearVelocity;
-        Vector2 playerInput = new Vector2(playerinputDirection,0);
+        Vector2 playerInput = new Vector2(playerinputDirection,0); //using playerinputdirection to move left and right
         
-        
-        if (playerInput.x == 0)
+        //deceleration
+        if (playerInput.x == 0) //if no left or rights are inputed
         {
-            if (newvelocity.x != 0f)
+            if (newvelocity.x != 0f) //if velo is not 0
             {
                 //newvelocity = new Vector2(newvelocity.x * 0.9f, newvelocity.y);
                 //that feels nice but now let's try and use the already established variables
 
-                //newvelocity = new Vector2(newvelocity.x * (1 - accelTime / maxspeed), 0);
-
-                newvelocity.x *= 1 - accelTime / maxspeed; //cleaner version,
-                                                           //acceltime / maxspeed would equal 0.1, minus 1 equal 0.9, which is a good value for deceleration.
-                                                           //I do feel like this could be skipped and just keep 0.9f, as deceleration should not be changed all to often.
+                newvelocity.x *= 1 - accelTime / maxspeed; 
+                //cleaner version,                                   
+                //acceltime / maxspeed would equal 0.1, minus 1 equal 0.9, which is a good value for deceleration.
+                //I do feel like this could be skipped and just keep 0.9f, as deceleration should not be changed all to often.
             }
             rb.linearVelocity = newvelocity;
-
         }
         if (rb.linearVelocity.x > -0.05f && rb.linearVelocity.x < 0.05f)
         {
             newvelocity.x = 0;
             rb.linearVelocity = new Vector2(newvelocity.x, rb.linearVelocity.y);
-            //newvelocity.x = rb.linearVelocity.x;
         }
-        //velocity = gravity * currentTime + initialJumpVelocity;
-        //position = (1 / 2) * gravity * (currentTime * currentTime) + initialJumpVelocity * currentTime + initalposition;
-
 
         rb.linearVelocity = newvelocity;
 
@@ -100,17 +94,11 @@ public class PlayerController : MonoBehaviour
         IsGrounded();
     }
 
-
-    //Velocity = g * (currentTime) + initialJumpVelocity
-    //Position = (1/2) * g* (currTime) ^ 2 + initialJumpVelocity* currTime +initialPosition
-    //Gravity = -2 * apexHeight / ((apexTime) ^2)
-    //Initial Jump Velocity = 2 * apexHeight / apexTime
-    
     void MovementUpdate(Vector2 playerInput)
     {
         Vector2 newvelocity = rb.linearVelocity;
 
-        if (playerInput.x != 0f)
+        if (playerInput.x != 0f) //movement from class
         {
             newvelocity += playerInput.x * Vector2.left * accel* Time.deltaTime;
             //newvelocity += playerInput * accel * Time.deltaTime;
@@ -137,8 +125,10 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         LayerMask mask = LayerMask.GetMask("ground");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.9f, mask); 
+        //ray that shoots down for 0.9f until it hits the ground mask
+        //mask is here because it will hit player collider otherwise.
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.9f, mask);
         //if (hit.collider != null) //here to tell me if the ground was hit or not
         //{
         //    Debug.Log("Hit");

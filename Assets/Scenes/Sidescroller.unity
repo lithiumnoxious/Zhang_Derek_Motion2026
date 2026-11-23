@@ -1711,14 +1711,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   maxspeed: 10
-  accelTime: 1.5
+  accelTime: 1
   accel: 0
   playerinputDirection: 0
   hasjumped: 0
-  gravity: 5
-  initialJumpVelocity: 0
-  apexTime: 2
-  apexheight: 5
+  apexTime: 1
+  apexheight: 4.5
 --- !u!4 &1433354315
 Transform:
   m_ObjectHideFlags: 0
