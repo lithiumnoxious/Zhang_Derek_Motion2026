@@ -7,9 +7,13 @@ public class PlayerController : MonoBehaviour
     public int maxspeed;
     public float accelTime;
     public float accel;
-    public Vector2 playerInput;
     public float playerinputDirection;
-    public Vector2 newvelocity;
+
+    public bool hasjumped;
+    public float gravity;
+    public float initialJumpVelocity;
+    public int apexTime;
+    public float apexheight;
 
     public enum FacingDirection
     {
@@ -22,32 +26,52 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponentInChildren<Rigidbody2D>();
         accel = maxspeed / accelTime;
+   
+
+        gravity = -2 * apexheight / (apexTime * apexTime);
+        initialJumpVelocity = 2 * apexheight / apexTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        newvelocity = rb.linearVelocity;
         //The input from the player needs to be determined and then passed in the to the MovementUpdate which should
         //manage the actual movement of the character.
-        playerInput = new Vector2();
+     
+        //Vector2 playerInput = new Vector2();
         if (Keyboard.current.leftArrowKey.isPressed)
         {
-            playerInput.x += 1f;
-            playerinputDirection = playerInput.x; //playerinputDirection is placed here so it does not get overwritten
+            //playerInput.x += 1f; //was here before the jumping was implemented.
+            //playerinputDirection = playerInput.x; //playerinputDirection was placed here so it does not get overwritten
+            playerinputDirection = 1; 
+            //instead of getting player control into fixed update, I just used playerinputdirection instead of player input.
         }
         else if (Keyboard.current.rightArrowKey.isPressed)
         {
-            playerInput.x -= 1f;
-            playerinputDirection = playerInput.x;
+            playerinputDirection = -1;
+        }
+        else
+        {
+            playerinputDirection = 0; //resets player direction
         }
         
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && IsGrounded())
+        {
+            hasjumped = true;
+        }
+    }
 
+    private void FixedUpdate()
+    {
+        Vector2 newvelocity = rb.linearVelocity;
+        Vector2 playerInput = new Vector2(playerinputDirection,0);
+        
+        
         if (playerInput.x == 0)
         {
             if (newvelocity.x != 0f)
             {
-                //newvelocity = new Vector2(newvelocity.x * 0.9f, 0);
+                //newvelocity = new Vector2(newvelocity.x * 0.9f, newvelocity.y);
                 //that feels nice but now let's try and use the already established variables
 
                 //newvelocity = new Vector2(newvelocity.x * (1 - accelTime / maxspeed), 0);
@@ -55,38 +79,52 @@ public class PlayerController : MonoBehaviour
                 newvelocity.x *= 1 - accelTime / maxspeed; //cleaner version,
                                                            //acceltime / maxspeed would equal 0.1, minus 1 equal 0.9, which is a good value for deceleration.
                                                            //I do feel like this could be skipped and just keep 0.9f, as deceleration should not be changed all to often.
-
             }
             rb.linearVelocity = newvelocity;
 
         }
         if (rb.linearVelocity.x > -0.05f && rb.linearVelocity.x < 0.05f)
         {
-            rb.linearVelocity = Vector2.zero;
-            newvelocity = rb.linearVelocity;
-
+            newvelocity.x = 0;
+            rb.linearVelocity = new Vector2(newvelocity.x, rb.linearVelocity.y);
+            //newvelocity.x = rb.linearVelocity.x;
         }
+        //velocity = gravity * currentTime + initialJumpVelocity;
+        //position = (1 / 2) * gravity * (currentTime * currentTime) + initialJumpVelocity * currentTime + initalposition;
+
+
+        rb.linearVelocity = newvelocity;
 
         MovementUpdate(playerInput);
         GetFacingDirection();
         IsGrounded();
-
     }
 
+
+    //Velocity = g * (currentTime) + initialJumpVelocity
+    //Position = (1/2) * g* (currTime) ^ 2 + initialJumpVelocity* currTime +initialPosition
+    //Gravity = -2 * apexHeight / ((apexTime) ^2)
+    //Initial Jump Velocity = 2 * apexHeight / apexTime
+    
     void MovementUpdate(Vector2 playerInput)
     {
+        Vector2 newvelocity = rb.linearVelocity;
 
         if (playerInput.x != 0f)
         {
-            newvelocity += playerInput.x * Vector2.left * accel * Time.deltaTime;
+            newvelocity += playerInput.x * Vector2.left * accel* Time.deltaTime;
             //newvelocity += playerInput * accel * Time.deltaTime;
         }
+
+        if (hasjumped)
+        {
+            newvelocity.y = initialJumpVelocity;
+            hasjumped = false;
+        }
+
+        newvelocity.y += gravity * Time.fixedDeltaTime;
         rb.linearVelocity = newvelocity;
-
-
     }
-
-    //public static int BoxCast(Vector2 origin, Vector2 size, float angle, Vector2 direction, ContactFilter2D contactFilter, RaycastHit2D[] results, float distance)
 
     public bool IsWalking()
     {
@@ -98,7 +136,9 @@ public class PlayerController : MonoBehaviour
     }
     public bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.9f);
+        LayerMask mask = LayerMask.GetMask("ground");
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.9f, mask);
         //if (hit.collider != null) //here to tell me if the ground was hit or not
         //{
         //    Debug.Log("Hit");
@@ -124,8 +164,5 @@ public class PlayerController : MonoBehaviour
         { 
             return FacingDirection.right;
         }
-
-
-
     }
 }
